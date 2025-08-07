@@ -1,0 +1,23 @@
+# Auto-assign configuration
+addReviewers: true
+addAssignees: false
+numberOfReviewers: 1
+
+reviewers:
+  - maintainer1
+  - maintainer2
+
+# Only assign when certain conditions are met
+skipKeywords:
+  - wip
+  - draft
+
+# File-based assignment rules
+filterLabels:
+  frontend:
+    - "frontend/**"
+  backend:
+    - "backend/**"
+  docs:
+    - "*.md"
+    - "docs/**"
