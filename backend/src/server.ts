@@ -18,17 +18,37 @@ app.use(compression())
 
 // CORS configuration
 const allowedOrigins = [
-  process.env.SERVICE_URL
+  process.env.SERVICE_URL,
+  'https://contribhub.fly.dev', // Production frontend URL
+  'http://localhost:5173', // Vite dev server
+  'http://localhost:3000', // Alternative dev port
 ].filter(Boolean)
+
+// Debug logging
+console.log('Environment variables:')
+console.log('SERVICE_URL:', process.env.SERVICE_URL)
+console.log('NODE_ENV:', process.env.NODE_ENV)
+console.log('Allowed origins:', allowedOrigins)
 
 app.use(cors({
   origin: (origin, callback) => {
+    // Log all requests for debugging
+    console.log(`CORS request from origin: ${origin}`)
+    
     // Allow requests with no origin (mobile apps, etc.)
-    if (!origin) return callback(null, true)
-
-    if (allowedOrigins.includes(origin)) {
+    if (!origin) {
+      console.log('Allowing request with no origin')
       return callback(null, true)
     }
+
+    if (allowedOrigins.includes(origin)) {
+      console.log(`Allowing origin: ${origin}`)
+      return callback(null, true)
+    }
+
+    // Log the rejected origin for debugging
+    console.log(`CORS rejected origin: ${origin}`)
+    console.log(`Allowed origins: ${allowedOrigins.join(', ')}`)
 
     return callback(new Error('Not allowed by CORS'))
   },
