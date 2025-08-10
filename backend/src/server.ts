@@ -7,6 +7,11 @@ import { githubRouter } from './routes/github.js'
 import { recommendationsRouter } from './routes/recommendations.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
+// Load environment variables based on NODE_ENV
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+dotenv.config({ path: envFile })
+
+// Also try to load from .env as fallback
 dotenv.config()
 
 const app = express()
@@ -25,9 +30,12 @@ const allowedOrigins = [
 ].filter(Boolean)
 
 // Debug logging
+console.log('Environment file used:', envFile)
 console.log('Environment variables:')
 console.log('SERVICE_URL:', process.env.SERVICE_URL)
 console.log('NODE_ENV:', process.env.NODE_ENV)
+console.log('PORT:', process.env.PORT)
+console.log('All environment variables:', Object.keys(process.env).filter(key => key.startsWith('SERVICE_') || key.startsWith('NODE_') || key.startsWith('PORT')))
 console.log('Allowed origins:', allowedOrigins)
 
 app.use(cors({
