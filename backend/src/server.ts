@@ -18,7 +18,7 @@ app.use(compression())
 
 // CORS configuration
 const allowedOrigins = [
-  process.env.FRONTEND_URL
+  process.env.SERVICE_URL
 ].filter(Boolean)
 
 app.use(cors({
