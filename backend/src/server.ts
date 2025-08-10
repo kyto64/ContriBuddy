@@ -8,8 +8,8 @@ import { recommendationsRouter } from './routes/recommendations.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
 // Load environment variables based on NODE_ENV
-const envFile = '.env.' + process.env.NODE_ENV
-dotenv.config({ path: envFile })
+const env = process.env.NODE_ENV || 'development'
+dotenv.config({ path: `.env.${env}` })
 
 // Also try to load from .env as fallback
 dotenv.config()
