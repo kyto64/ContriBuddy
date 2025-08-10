@@ -11,6 +11,6 @@
     },
     "types": ["vite/client"],
     "allowImportingTsExtensions": false,
-    "noEmit": false
+    "noEmit": true
   }
 }
