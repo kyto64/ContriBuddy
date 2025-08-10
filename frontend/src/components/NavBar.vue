@@ -18,16 +18,20 @@
               class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               :class="{ 'text-primary-600 bg-primary-50': $route.name === 'home' }"
             >
-              Home
+              {{ $t('nav.home') }}
             </RouterLink>
             <RouterLink
               to="/skills"
               class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               :class="{ 'text-primary-600 bg-primary-50': $route.name === 'skills' }"
             >
-              Find Projects
+              {{ $t('nav.findProjects') }}
             </RouterLink>
           </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <LanguageSwitcher />
         </div>
       </div>
     </div>
@@ -36,4 +40,5 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import LanguageSwitcher from './LanguageSwitcher.vue'
 </script>

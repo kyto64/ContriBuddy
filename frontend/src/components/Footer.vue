@@ -10,7 +10,7 @@
         </div>
 
         <div class="text-sm text-gray-400">
-          <p>&copy; 2025 ContribHub. Made with ❤️ for the OSS community.</p>
+          <p>{{ $t('footer.madeWith') }}</p>
         </div>
 
         <div class="flex space-x-4 mt-4 md:mt-0">
