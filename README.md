@@ -37,17 +37,17 @@
 3. **Set up environment variables**
    ```bash
    # Copy environment templates
-   cp .env.example backend/.env
-   cp .env.example frontend/.env
+   cp .env.example backend/.env.development
+   cp .env.example frontend/.env.development
 
-   # Edit backend/.env and add your GitHub token
-   # Edit frontend/.env if needed
+   # Edit backend/.env.development and add your GitHub token
+   # Edit frontend/.env.development if needed
    ```
 
 4. **Get a GitHub Personal Access Token**
    - Go to GitHub Settings > Developer settings > Personal access tokens
    - Generate a new token with `public_repo` scope
-   - Add it to `backend/.env` as `GITHUB_TOKEN=your_token_here`
+   - Add it to `backend/.env.development` as `GITHUB_TOKEN=your_token_here`
 
 5. **Start the development servers**
    ```bash

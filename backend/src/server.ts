@@ -8,7 +8,7 @@ import { recommendationsRouter } from './routes/recommendations.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
 // Load environment variables based on NODE_ENV
-const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+const envFile = '.env.' + process.env.NODE_ENV
 dotenv.config({ path: envFile })
 
 // Also try to load from .env as fallback
@@ -24,25 +24,13 @@ app.use(compression())
 // CORS configuration
 const allowedOrigins = [
   process.env.SERVICE_URL,
-  'https://contribhub.fly.dev', // Production frontend URL
-  'http://localhost:5173', // Vite dev server
-  'http://localhost:3000', // Alternative dev port
 ].filter(Boolean)
-
-// Debug logging
-console.log('Environment file used:', envFile)
-console.log('Environment variables:')
-console.log('SERVICE_URL:', process.env.SERVICE_URL)
-console.log('NODE_ENV:', process.env.NODE_ENV)
-console.log('PORT:', process.env.PORT)
-console.log('All environment variables:', Object.keys(process.env).filter(key => key.startsWith('SERVICE_') || key.startsWith('NODE_') || key.startsWith('PORT')))
-console.log('Allowed origins:', allowedOrigins)
 
 app.use(cors({
   origin: (origin, callback) => {
     // Log all requests for debugging
     console.log(`CORS request from origin: ${origin}`)
-    
+
     // Allow requests with no origin (mobile apps, etc.)
     if (!origin) {
       console.log('Allowing request with no origin')
