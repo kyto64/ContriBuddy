@@ -4,10 +4,10 @@
       <!-- Header -->
       <div class="text-center mb-8">
         <h1 class="text-3xl font-bold text-gray-900 mb-4">
-          Tell us about your skills
+          {{ $t('skills.title') }}
         </h1>
         <p class="text-lg text-gray-600">
-          We'll use this information to find the perfect OSS projects for you
+          {{ $t('skills.subtitle') }}
         </p>
       </div>
 
@@ -17,14 +17,14 @@
           <!-- Programming Languages -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
-              Programming Languages
+              {{ $t('skills.programmingLanguages') }}
             </label>
             <div class="space-y-2">
               <input
                 v-model="newLanguage"
                 @keyup.enter="addLanguage"
                 type="text"
-                placeholder="e.g., JavaScript, Python, Java"
+                :placeholder="$t('skills.selectLanguages')"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               />
               <div class="flex flex-wrap gap-2 mt-2">
@@ -52,14 +52,14 @@
           <!-- Frameworks -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
-              Frameworks & Libraries
+              {{ $t('skills.frameworks') }}
             </label>
             <div class="space-y-2">
               <input
                 v-model="newFramework"
                 @keyup.enter="addFramework"
                 type="text"
-                placeholder="e.g., React, Vue.js, Django"
+                :placeholder="$t('skills.selectFrameworks')"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               />
               <div class="flex flex-wrap gap-2 mt-2">
@@ -87,14 +87,14 @@
           <!-- Interests -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
-              Interests & Topics
+              {{ $t('skills.interests') }}
             </label>
             <div class="space-y-2">
               <input
                 v-model="newInterest"
                 @keyup.enter="addInterest"
                 type="text"
-                placeholder="e.g., Machine Learning, Web Development, DevOps"
+                :placeholder="$t('skills.selectInterests')"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               />
               <div class="flex flex-wrap gap-2 mt-2">
@@ -122,7 +122,7 @@
           <!-- Experience Level -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
-              Experience Level
+              {{ $t('skills.experienceLevel') }}
             </label>
             <div class="grid grid-cols-3 gap-3">
               <button
@@ -161,10 +161,10 @@
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Finding Projects...
+                {{ $t('common.loading') }}
               </span>
               <span v-else>
-                Find OSS Projects
+                {{ $t('skills.getRecommendations') }}
               </span>
             </button>
           </div>
@@ -177,12 +177,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user'
 import SkillTag from '@/components/SkillTag.vue'
 import type { UserSkills } from '@/types'
 
 const router = useRouter()
 const userStore = useUserStore()
+const { t } = useI18n()
 
 // Form state
 const newLanguage = ref('')
@@ -213,26 +215,26 @@ const interestSuggestions = ref([
   'Data Science', 'Blockchain', 'AI', 'Security', 'Cloud Computing'
 ])
 
-const experienceLevels = [
+const experienceLevels = computed(() => [
   {
     value: 'beginner' as const,
-    label: 'Beginner',
+    label: t('skills.beginner'),
     icon: '🌱',
-    description: 'New to programming'
+    description: t('skills.beginnerDesc') || 'New to programming'
   },
   {
     value: 'intermediate' as const,
-    label: 'Intermediate',
+    label: t('skills.intermediate'),
     icon: '🚀',
-    description: 'Some experience'
+    description: t('skills.intermediateDesc') || 'Some experience'
   },
   {
     value: 'advanced' as const,
-    label: 'Advanced',
+    label: t('skills.advanced'),
     icon: '⭐',
-    description: 'Experienced developer'
+    description: t('skills.advancedDesc') || 'Experienced developer'
   }
-]
+])
 
 // Computed properties
 const hasValidSkills = computed(() =>

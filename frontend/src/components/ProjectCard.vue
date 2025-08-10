@@ -57,7 +57,7 @@
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
-        <span>{{ recommendation.repo.open_issues_count }} issues</span>
+        <span>{{ recommendation.repo.open_issues_count }} {{ $t('recommendations.helpWantedIssues') }}</span>
       </div>
 
       <div v-if="recommendation.repo.language" class="flex items-center space-x-1">
@@ -71,7 +71,7 @@
 
     <!-- Match Reasons -->
     <div v-if="recommendation.reasons.length > 0" class="mb-4">
-      <h4 class="text-sm font-medium text-gray-700 mb-2">Why this matches:</h4>
+      <h4 class="text-sm font-medium text-gray-700 mb-2">{{ $t('recommendations.matchReasons') }}:</h4>
       <div class="space-y-1">
         <div
           v-for="reason in recommendation.reasons.slice(0, 3)"
@@ -108,7 +108,7 @@
     <!-- Suggested Issues -->
     <div v-if="recommendation.suggestedIssues.length > 0" class="border-t pt-4">
       <h4 class="text-sm font-medium text-gray-700 mb-3">
-        Suggested Issues
+        {{ $t('recommendations.goodFirstIssues') }}
         <span class="text-gray-500 font-normal">({{ recommendation.suggestedIssues.length }})</span>
       </h4>
       <div class="space-y-2">
@@ -158,7 +158,7 @@
           rel="noopener noreferrer"
           class="text-sm text-primary-600 hover:text-primary-700 font-medium"
         >
-          View all {{ recommendation.suggestedIssues.length }} issues →
+          {{ $t('recommendations.viewAll') }} {{ recommendation.suggestedIssues.length }} {{ $t('recommendations.helpWantedIssues') }} →
         </a>
       </div>
     </div>
@@ -171,7 +171,7 @@
         rel="noopener noreferrer"
         class="btn-primary flex-1 text-center"
       >
-        View Repository
+        {{ $t('recommendations.viewOnGitHub') }}
       </a>
       <a
         :href="`${recommendation.repo.html_url}/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22`"
@@ -179,7 +179,7 @@
         rel="noopener noreferrer"
         class="btn-secondary flex-1 text-center"
       >
-        Find Issues
+        {{ $t('recommendations.goodFirstIssues') }}
       </a>
     </div>
   </div>
@@ -232,6 +232,7 @@ const getLanguageColor = (language: string): string => {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
