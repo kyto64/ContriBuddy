@@ -2,6 +2,8 @@
 
 🧭 **ContribHub** is a web application that recommends open-source projects and contribution opportunities tailored to your skills. By leveraging the GitHub API, it helps developers—especially beginners—find meaningful ways to contribute to OSS.
 
+## 🫵 Visit [ContribHub](https://contribhub.fly.dev/) to explore open-source projects and start contributing today!
+
 <kbd><img src="https://github.com/user-attachments/assets/abaaf604-63c7-4d7b-8d03-8057292dd35a" /></kbd>
 
 ## ✨ Features
