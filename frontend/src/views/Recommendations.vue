@@ -130,7 +130,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { ApiService } from '@/services/api'
@@ -200,6 +200,18 @@ const loadRecommendations = async () => {
     userStore.setLoading(false)
   }
 }
+
+// Watch for skills changes and reload recommendations
+watch(
+  () => userStore.skills,
+  () => {
+    // If we're on this page and skills have changed, reload recommendations
+    if (userStore.hasSkills && recommendations.value.length === 0) {
+      loadRecommendations()
+    }
+  },
+  { deep: true }
+)
 
 // Lifecycle
 onMounted(() => {

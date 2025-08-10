@@ -31,6 +31,8 @@ export const useUserStore = defineStore('user', () => {
   // Actions
   function updateSkills(newSkills: Partial<UserSkills>) {
     skills.value = { ...skills.value, ...newSkills }
+    // Clear cached recommendations when skills change
+    clearRecommendations()
   }
 
   function setRecommendations(newRecommendations: ProjectRecommendation[]) {

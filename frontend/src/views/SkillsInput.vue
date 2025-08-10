@@ -302,7 +302,7 @@ const generateRecommendations = async () => {
   isLoading.value = true
 
   try {
-    // Save skills to store
+    // Save skills to store and clear cached recommendations
     userStore.updateSkills(skills.value)
 
     // Navigate to recommendations page
