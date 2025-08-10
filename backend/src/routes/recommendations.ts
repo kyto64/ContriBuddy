@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { RecommendationService } from '../services/recommendations.js'
 import { z } from 'zod'
 import type { Request, Response } from 'express'
-import type { ApiResponse, RecommendationRequest, RecommendationResponse } from '../types/index.js'
+import type { ApiResponse, RecommendationRequest, RecommendationResponse, SearchFilters } from '../types/index.js'
 
 export const recommendationsRouter = Router()
 
@@ -24,7 +24,7 @@ const RecommendationRequestSchema = z.object({
 })
 
 // Get personalized project recommendations
-recommendationsRouter.post('/generate', async (req: Request, res: Response) => {
+recommendationsRouter.post('/generate', async (req: Request, res: Response): Promise<void> => {
   try {
     const startTime = Date.now()
 
@@ -36,7 +36,8 @@ recommendationsRouter.post('/generate', async (req: Request, res: Response) => {
         error: 'Invalid request data',
         message: validation.error.errors.map(e => e.message).join(', ')
       }
-      return res.status(400).json(response)
+      res.status(400).json(response)
+      return
     }
 
     const { skills, filters = {} } = validation.data
@@ -47,7 +48,8 @@ recommendationsRouter.post('/generate', async (req: Request, res: Response) => {
         success: false,
         error: 'At least one skill, framework, or interest must be provided'
       }
-      return res.status(400).json(response)
+      res.status(400).json(response)
+      return
     }
 
     console.log('📝 Generating recommendations for:', {
@@ -58,7 +60,25 @@ recommendationsRouter.post('/generate', async (req: Request, res: Response) => {
     })
 
     // Generate recommendations
-    const recommendations = await RecommendationService.getRecommendations(skills, filters)
+    const cleanFilters: Partial<SearchFilters> = {}
+
+    if (filters.language) {
+      cleanFilters.language = filters.language
+    }
+    if (filters.minStars !== undefined) {
+      cleanFilters.minStars = filters.minStars
+    }
+    if (filters.maxStars !== undefined) {
+      cleanFilters.maxStars = filters.maxStars
+    }
+    if (filters.hasGoodFirstIssues !== undefined) {
+      cleanFilters.hasGoodFirstIssues = filters.hasGoodFirstIssues
+    }
+    if (filters.topics) {
+      cleanFilters.topics = filters.topics
+    }
+
+    const recommendations = await RecommendationService.getRecommendations(skills, cleanFilters)
     const processingTime = Date.now() - startTime
 
     const responseData: RecommendationResponse = {
@@ -86,10 +106,19 @@ recommendationsRouter.post('/generate', async (req: Request, res: Response) => {
 })
 
 // Get trending repositories by language
-recommendationsRouter.get('/trending/:language', async (req: Request, res: Response) => {
+recommendationsRouter.get('/trending/:language', async (req: Request, res: Response): Promise<void> => {
   try {
     const { language } = req.params
     const { limit = '10' } = req.query
+
+    if (!language) {
+      const response: ApiResponse = {
+        success: false,
+        error: 'Language parameter is required'
+      }
+      res.status(400).json(response)
+      return
+    }
 
     const repositories = await RecommendationService.getRecommendations(
       {
@@ -127,7 +156,7 @@ recommendationsRouter.get('/trending/:language', async (req: Request, res: Respo
 })
 
 // Health check for recommendations service
-recommendationsRouter.get('/health', (req: Request, res: Response) => {
+recommendationsRouter.get('/health', (req: Request, res: Response): void => {
   res.json({
     status: 'ok',
     service: 'recommendations',
