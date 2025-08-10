@@ -96,5 +96,37 @@
       "emptyDescription": "Your search history will appear here after you submit skills",
       "confirmClear": "Are you sure you want to clear all search history?"
     }
+  },
+  "cookies": {
+    "title": "We use cookies",
+    "description": "We use cookies to enhance your experience, remember your preferences, and analyze site usage. By continuing to use our site, you consent to our use of cookies.",
+    "customize": "Customize",
+    "essentialOnly": "Essential Only",
+    "acceptAll": "Accept All",
+    "preferences": "Cookie Preferences",
+    "required": "Required",
+    "savePreferences": "Save Preferences",
+    "essential": {
+      "title": "Essential Cookies",
+      "description": "These cookies are necessary for the website to function and cannot be disabled. They are usually set in response to actions made by you such as setting your privacy preferences or filling in forms."
+    },
+    "functional": {
+      "title": "Functional Cookies",
+      "description": "These cookies remember your preferences and choices (like search history) to provide a more personalized experience."
+    },
+    "analytics": {
+      "title": "Analytics Cookies",
+      "description": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously."
+    }
+  },
+  "search": {
+    "history": {
+      "title": "Search History",
+      "clear": "Clear All",
+      "remove": "Remove from history",
+      "empty": "No search history yet",
+      "emptyDescription": "Your search history will appear here after you submit skills",
+      "confirmClear": "Are you sure you want to clear all search history?"
+    }
   }
 }

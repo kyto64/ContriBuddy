@@ -101,9 +101,13 @@
         </RouterLink>
       </div>
     </section>
+
+    <!-- Cookie Consent Banner -->
+    <CookieConsentBanner />
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import CookieConsentBanner from '@/components/CookieConsentBanner.vue'
 </script>

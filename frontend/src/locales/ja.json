@@ -96,5 +96,27 @@
       "emptyDescription": "スキルを送信した後に検索履歴が表示されます",
       "confirmClear": "すべての検索履歴をクリアしますか？"
     }
+  },
+  "cookies": {
+    "title": "Cookieの使用について",
+    "description": "当サイトでは、ユーザー体験の向上、設定の記憶、サイト利用状況の分析のためにCookieを使用しています。当サイトの継続利用により、Cookieの使用に同意したものとみなします。",
+    "customize": "カスタマイズ",
+    "essentialOnly": "必須のみ",
+    "acceptAll": "すべて許可",
+    "preferences": "Cookie設定",
+    "required": "必須",
+    "savePreferences": "設定を保存",
+    "essential": {
+      "title": "必須Cookie",
+      "description": "これらのCookieはウェブサイトの機能に必要で、無効にすることはできません。通常、プライバシー設定やフォーム入力などのユーザーアクションに応じて設定されます。"
+    },
+    "functional": {
+      "title": "機能Cookie",
+      "description": "これらのCookieは、より個人化された体験を提供するために、お客様の設定や選択（検索履歴など）を記憶します。"
+    },
+    "analytics": {
+      "title": "分析Cookie",
+      "description": "これらのCookieは、匿名で情報を収集・報告することで、訪問者がウェブサイトとどのように相互作用するかを理解するのに役立ちます。"
+    }
   }
 }

@@ -1,5 +1,6 @@
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
 import type { UserSkills, SearchHistoryItem, FormattedSearchHistoryItem } from '@/types'
+import { useCookieConsent, onConsentChange } from './useCookieConsent'
 
 const COOKIE_NAME = 'contribhub_search_history'
 const MAX_HISTORY_ITEMS = 10
@@ -87,12 +88,18 @@ function areSkillsSimilar(skills1: UserSkills, skills2: UserSkills): boolean {
 }
 
 export function useSearchHistory() {
+  const { canUseFunctional } = useCookieConsent()
   const searchHistory = ref<SearchHistoryItem[]>([])
 
   /**
-   * Load search history from cookies
+   * Load search history from cookies (only if functional cookies are allowed)
    */
   function loadHistory(): void {
+    if (!canUseFunctional.value) {
+      searchHistory.value = []
+      return
+    }
+
     const cookieValue = getCookie(COOKIE_NAME)
     if (cookieValue) {
       searchHistory.value = parseCookie(cookieValue)
@@ -100,16 +107,39 @@ export function useSearchHistory() {
   }
 
   /**
-   * Save search history to cookies
+   * Save search history to cookies (only if functional cookies are allowed)
    */
   function saveHistory(): void {
+    if (!canUseFunctional.value) {
+      return
+    }
     setCookie(COOKIE_NAME, JSON.stringify(searchHistory.value), COOKIE_EXPIRY_DAYS)
   }
 
+  // Listen for consent changes and reload history when functional cookies are enabled
+  const unsubscribeConsentChange = onConsentChange((consent) => {
+    if (consent.functional) {
+      // Functional cookies were just enabled, load history
+      loadHistory()
+    } else {
+      // Functional cookies were disabled, clear history
+      searchHistory.value = []
+    }
+  })
+
+  // Cleanup listener on unmount
+  onUnmounted(() => {
+    unsubscribeConsentChange()
+  })
+
   /**
-   * Add a new search to history
+   * Add a new search to history (only if functional cookies are allowed)
    */
   function addToHistory(skills: UserSkills): void {
+    if (!canUseFunctional.value) {
+      return
+    }
+
     // Check if similar skills already exist in history
     const existingIndex = searchHistory.value.findIndex(item =>
       areSkillsSimilar(item.skills, skills)
