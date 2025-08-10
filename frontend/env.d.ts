@@ -8,5 +8,5 @@ declare module '*.vue' {
 
 declare module 'vue-i18n' {
   import { DefineComponent } from 'vue'
-  export * from '@intlify/vue-i18n'
+  export { createI18n, useI18n } from '@intlify/vue-i18n'
 }
