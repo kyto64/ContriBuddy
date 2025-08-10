@@ -12,12 +12,45 @@
               {{ $t('recommendations.subtitle') }}: {{ skillsSummary }}
             </p>
           </div>
-          <RouterLink
-            to="/skills"
-            class="btn-secondary"
-          >
-            {{ $t('recommendations.backToSkills') }}
-          </RouterLink>
+          <div class="flex items-center space-x-3">
+            <!-- Search History Dropdown -->
+            <div class="relative" ref="historyDropdown">
+              <button
+                @click="showHistoryDropdown = !showHistoryDropdown"
+                class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                :class="{ 'ring-2 ring-primary-500': showHistoryDropdown }"
+              >
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {{ $t('search.history.title') }}
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu -->
+              <div
+                v-if="showHistoryDropdown"
+                class="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+              >
+                <div class="py-4 px-4">
+                  <SearchHistory
+                    @history-item-selected="onHistoryItemSelected"
+                    :max-items="5"
+                    :show-in-card="false"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <RouterLink
+              to="/skills"
+              class="btn-secondary"
+            >
+              {{ $t('recommendations.backToSkills') }}
+            </RouterLink>
+          </div>
         </div>
       </div>
 
@@ -130,19 +163,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, computed, onMounted, watch, onUnmounted } from 'vue'
+import { useRouter, RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { ApiService } from '@/services/api'
 import ProjectCard from '@/components/ProjectCard.vue'
-import type { ProjectRecommendation } from '@/types'
+import SearchHistory from '@/components/SearchHistory.vue'
+import type { ProjectRecommendation, UserSkills } from '@/types'
 
+const router = useRouter()
 const userStore = useUserStore()
 
 const recommendations = ref<ProjectRecommendation[]>([])
 const isLoading = ref(false)
 const error = ref<string | null>(null)
 const sortBy = ref<'score' | 'stars' | 'issues'>('score')
+const showHistoryDropdown = ref(false)
+const historyDropdown = ref<HTMLElement>()
 
 // Computed properties
 const skillsSummary = computed(() => {
@@ -201,6 +238,19 @@ const loadRecommendations = async () => {
   }
 }
 
+// Search History Methods
+const onHistoryItemSelected = async (historySkills: UserSkills) => {
+  showHistoryDropdown.value = false
+  userStore.loadSkillsFromHistory(historySkills)
+  await loadRecommendations()
+}
+
+const handleClickOutside = (event: Event) => {
+  if (historyDropdown.value && !historyDropdown.value.contains(event.target as Node)) {
+    showHistoryDropdown.value = false
+  }
+}
+
 // Watch for skills changes and reload recommendations
 watch(
   () => userStore.skills,
@@ -222,5 +272,13 @@ onMounted(() => {
     // Generate new recommendations if we have skills but no cached results
     loadRecommendations()
   }
+
+  // Add click outside listener for dropdown
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  // Remove click outside listener
+  document.removeEventListener('click', handleClickOutside)
 })
 </script>

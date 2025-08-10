@@ -71,3 +71,16 @@ export interface ApiResponse<T = any> {
   message?: string
   error?: string
 }
+
+// Search History types
+export interface SearchHistoryItem {
+  id: string
+  skills: UserSkills
+  timestamp: number
+  label?: string
+}
+
+export interface FormattedSearchHistoryItem extends SearchHistoryItem {
+  relativeTime: string
+  skillsCount: number
+}

@@ -86,5 +86,15 @@
     "error": "エラーが発生しました",
     "tryAgain": "再試行",
     "close": "閉じる"
+  },
+  "search": {
+    "history": {
+      "title": "検索履歴",
+      "clear": "すべてクリア",
+      "remove": "履歴から削除",
+      "empty": "検索履歴がありません",
+      "emptyDescription": "スキルを送信した後に検索履歴が表示されます",
+      "confirmClear": "すべての検索履歴をクリアしますか？"
+    }
   }
 }

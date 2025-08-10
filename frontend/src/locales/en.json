@@ -86,5 +86,15 @@
     "error": "An error occurred",
     "tryAgain": "Try Again",
     "close": "Close"
+  },
+  "search": {
+    "history": {
+      "title": "Search History",
+      "clear": "Clear All",
+      "remove": "Remove from history",
+      "empty": "No search history yet",
+      "emptyDescription": "Your search history will appear here after you submit skills",
+      "confirmClear": "Are you sure you want to clear all search history?"
+    }
   }
 }

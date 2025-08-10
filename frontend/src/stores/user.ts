@@ -1,8 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { UserSkills, ProjectRecommendation } from '@/types'
+import { useSearchHistory } from '@/composables/useSearchHistory'
 
 export const useUserStore = defineStore('user', () => {
+  // Search history composable
+  const { searchHistory, formattedHistory, addToHistory, removeFromHistory, clearHistory } = useSearchHistory()
+
   // State
   const skills = ref<UserSkills>({
     languages: [],
@@ -30,8 +34,26 @@ export const useUserStore = defineStore('user', () => {
 
   // Actions
   function updateSkills(newSkills: Partial<UserSkills>) {
+    const oldSkills = { ...skills.value }
     skills.value = { ...skills.value, ...newSkills }
+
+    // Add to search history if skills have changed significantly
+    const hasChanged =
+      JSON.stringify(oldSkills.languages.sort()) !== JSON.stringify(skills.value.languages.sort()) ||
+      JSON.stringify(oldSkills.frameworks.sort()) !== JSON.stringify(skills.value.frameworks.sort()) ||
+      JSON.stringify(oldSkills.interests.sort()) !== JSON.stringify(skills.value.interests.sort()) ||
+      oldSkills.experienceLevel !== skills.value.experienceLevel
+
+    if (hasChanged && hasSkills.value) {
+      addToHistory(skills.value)
+    }
+
     // Clear cached recommendations when skills change
+    clearRecommendations()
+  }
+
+  function loadSkillsFromHistory(historySkills: UserSkills) {
+    skills.value = { ...historySkills }
     clearRecommendations()
   }
 
@@ -71,16 +93,26 @@ export const useUserStore = defineStore('user', () => {
     isLoading,
     error,
 
+    // Search History
+    searchHistory,
+    formattedHistory,
+
     // Getters
     hasSkills,
     topRecommendations,
 
     // Actions
     updateSkills,
+    loadSkillsFromHistory,
     setRecommendations,
     setLoading,
     setError,
     clearRecommendations,
-    reset
+    reset,
+
+    // Search History Actions
+    addToHistory,
+    removeFromHistory,
+    clearHistory
   }
 })

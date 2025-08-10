@@ -12,8 +12,11 @@
       </div>
 
       <!-- Skills Form -->
-      <div class="card max-w-2xl mx-auto">
-        <form @submit.prevent="generateRecommendations" class="space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Form -->
+        <div class="lg:col-span-2">
+          <div class="card">
+            <form @submit.prevent="generateRecommendations" class="space-y-6">
           <!-- Programming Languages -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -169,6 +172,18 @@
             </button>
           </div>
         </form>
+          </div>
+        </div>
+
+        <!-- Search History Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="card">
+            <SearchHistory
+              @history-item-selected="onHistoryItemSelected"
+              :max-items="5"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -180,6 +195,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user'
 import SkillTag from '@/components/SkillTag.vue'
+import SearchHistory from '@/components/SearchHistory.vue'
 import type { UserSkills } from '@/types'
 
 const router = useRouter()
@@ -313,5 +329,10 @@ const generateRecommendations = async () => {
   } finally {
     isLoading.value = false
   }
+}
+
+// Handle search history item selection
+const onHistoryItemSelected = (historySkills: UserSkills) => {
+  skills.value = { ...historySkills }
 }
 </script>
