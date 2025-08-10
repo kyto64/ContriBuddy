@@ -1,8 +1,8 @@
-# ContribHub
+# ContriBuddy
 
-🧭 **ContribHub** is a web application that recommends open-source projects and contribution opportunities tailored to your skills. By leveraging the GitHub API, it helps developers—especially beginners—find meaningful ways to contribute to OSS.
+🧭 **ContriBuddy** is a web application that recommends open-source projects and contribution opportunities tailored to your skills. By leveraging the GitHub API, it helps developers—especially beginners—find meaningful ways to contribute to OSS.
 
-## 🫵 Visit [ContribHub](https://contribhub.fly.dev/) to explore open-source projects and start contributing today!
+## 🫵 Visit [ContriBuddy](https://contribuddy.fly.dev/) to explore open-source projects and start contributing today!
 
 <kbd><img src="https://github.com/user-attachments/assets/abaaf604-63c7-4d7b-8d03-8057292dd35a" /></kbd>
 
@@ -25,8 +25,8 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/kyto64/ContribHub.git
-   cd ContribHub
+   git clone https://github.com/kyto64/ContriBuddy.git
+   cd ContriBuddy
    ```
 
 2. **Install dependencies**
@@ -78,7 +78,7 @@
 ## 📁 Project Structure
 
 ```
-ContribHub/
+ContriBuddy/
 ├── frontend/                 # Vue.js frontend application
 │   ├── src/
 │   │   ├── components/      # Reusable Vue components
@@ -161,7 +161,7 @@ If you discover a security vulnerability, please see our [Security Policy](SECUR
 
 ## 🐛 Issues
 
-Found a bug? Have a feature request? Please check our [Issues](https://github.com/kyto64/ContribHub/issues) page or create a new one.
+Found a bug? Have a feature request? Please check our [Issues](https://github.com/kyto64/ContriBuddy/issues) page or create a new one.
 
 ## 🙏 Acknowledgments
 

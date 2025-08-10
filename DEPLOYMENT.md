@@ -1,4 +1,4 @@
-# Deployment Setup Guide
+# ContriBuddy Deployment Setup Guide
 
 ## GitHub Actions Secrets Configuration
 
@@ -62,20 +62,20 @@ flyctl deploy
 
 3. **Health check fails**
    - Verify the backend is running on the correct port (3000)
-   - Check Fly.io logs: `flyctl logs -a contribhub-api`
+   - Check Fly.io logs: `flyctl logs -a contribuddy-api`
 
 ### Useful Commands
 
 ```bash
 # Check deployment status
-flyctl status -a contribhub-api
-flyctl status -a contribhub
+flyctl status -a contribuddy-api
+flyctl status -a contribuddy
 
 # View logs
-flyctl logs -a contribhub-api
-flyctl logs -a contribhub
+flyctl logs -a contribuddy-api
+flyctl logs -a contribuddy
 
 # Scale machines
-flyctl scale count 1 -a contribhub-api
-flyctl scale count 1 -a contribhub
+flyctl scale count 1 -a contribuddy-api
+flyctl scale count 1 -a contribuddy
 ```

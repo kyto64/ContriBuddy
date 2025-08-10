@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-const COOKIE_CONSENT_KEY = 'contribhub_cookie_consent'
+const COOKIE_CONSENT_KEY = 'contribuddy_cookie_consent'
 const COOKIE_EXPIRY_DAYS = 365
 
 export interface CookieConsent {
@@ -196,7 +196,7 @@ export function useCookieConsent() {
 
     // Clear search history if functional cookies are revoked
     if (!consent.value.functional) {
-      deleteCookie('contribhub_search_history')
+      deleteCookie('contribuddy_search_history')
     }
 
     consent.value = {

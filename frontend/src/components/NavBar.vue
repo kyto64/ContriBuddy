@@ -7,7 +7,7 @@
             <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
               <span class="text-white font-bold text-lg">C</span>
             </div>
-            <span class="text-xl font-bold text-gray-900">ContribHub</span>
+            <span class="text-xl font-bold text-gray-900">ContriBuddy</span>
           </RouterLink>
         </div>
 

@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for contribhub-api on 2025-08-10T02:41:59Z
+# fly.toml app configuration file generated for contribuddy-api on 2025-08-10T02:41:59Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'contribhub-api'
+app = 'contribuddy-api'
 primary_region = 'nrt'
 
 [build]

@@ -2,7 +2,7 @@ import { ref, computed, onUnmounted } from 'vue'
 import type { UserSkills, SearchHistoryItem, FormattedSearchHistoryItem } from '@/types'
 import { useCookieConsent, onConsentChange } from './useCookieConsent'
 
-const COOKIE_NAME = 'contribhub_search_history'
+const COOKIE_NAME = 'contribuddy_search_history'
 const MAX_HISTORY_ITEMS = 10
 const COOKIE_EXPIRY_DAYS = 30
 

@@ -1,12 +1,12 @@
 name: Feature Request
-description: Suggest an idea for ContribHub
+description: Suggest an idea for ContriBuddy
 title: "[Feature]: "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting a new feature for ContribHub!
+        Thanks for suggesting a new feature for ContriBuddy!
 
   - type: textarea
     id: problem-description

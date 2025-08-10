@@ -68,7 +68,7 @@
     "mostIssues": "Most Issues"
   },
   "footer": {
-    "description": "ContribHub helps developers find meaningful open-source projects to contribute to.",
+    "description": "ContriBuddy helps developers find meaningful open-source projects to contribute to.",
     "quickLinks": "Quick Links",
     "home": "Home",
     "findProjects": "Find Projects",
@@ -79,7 +79,7 @@
     "documentation": "Documentation",
     "apiDocs": "API Documentation",
     "support": "Support",
-    "madeWith": "Made with ❤️ by the ContribHub team"
+    "madeWith": "Made with ❤️ by the ContriBuddy team"
   },
   "common": {
     "loading": "Loading...",

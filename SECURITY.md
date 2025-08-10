@@ -8,7 +8,7 @@
 
 ## Reporting a Vulnerability
 
-We take the security of ContribHub seriously. If you discover a security vulnerability, please follow these steps:
+We take the security of ContriBuddy seriously. If you discover a security vulnerability, please follow these steps:
 
 1. **Do not** create a public GitHub issue for the vulnerability.
 2. Email us directly at [kira@kyto64.com] with details of the vulnerability.
@@ -35,4 +35,4 @@ We ask that you:
 
 At this time, we do not offer a bug bounty program, but we will acknowledge security researchers who responsibly disclose vulnerabilities.
 
-Thank you for helping keep ContribHub secure!
+Thank you for helping keep ContriBuddy secure!

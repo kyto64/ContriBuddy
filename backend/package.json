@@ -1,7 +1,7 @@
 {
-  "name": "contribhub-backend",
+  "name": "contribuddy-backend",
   "version": "1.0.0",
-  "description": "Backend API for ContribHub - OSS project recommendation service",
+  "description": "Backend API for ContriBuddy - OSS project recommendation service",
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
