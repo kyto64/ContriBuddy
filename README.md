@@ -121,6 +121,19 @@ npm run build
 npm run type-check
 ```
 
+## 🚀 Deployment
+
+This project is configured for automatic deployment to Fly.io using GitHub Actions.
+
+### Automatic Deployment
+
+When you push to the `main` branch, the following happens automatically:
+
+1. **Testing & Linting**: Code is tested and linted
+2. **Building**: Both frontend and backend are built
+3. **Deployment**: Apps are deployed to Fly.io
+4. **Health Check**: Backend health is verified
+
 ### API Endpoints
 
 - `GET /api/repositories/search` - Search repositories by technology
