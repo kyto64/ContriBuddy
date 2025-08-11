@@ -2,7 +2,10 @@
   "nav": {
     "home": "ホーム",
     "findProjects": "プロジェクトを探す",
-    "language": "言語"
+    "language": "言語",
+    "loginWithGitHub": "GitHubでログイン",
+    "viewProfile": "GitHubプロフィールを見る",
+    "logout": "ログアウト"
   },
   "home": {
     "title": "次の",
@@ -86,6 +89,15 @@
     "error": "エラーが発生しました",
     "tryAgain": "再試行",
     "close": "閉じる"
+  },
+  "auth": {
+    "signingIn": "GitHubでサインイン中",
+    "pleaseWait": "認証中です。しばらくお待ちください...",
+    "signInFailed": "サインインに失敗しました",
+    "signInSuccess": "サインインが完了しました！",
+    "redirecting": "リダイレクト中...",
+    "tryAgain": "再試行",
+    "backToHome": "ホームに戻る"
   },
   "search": {
     "history": {

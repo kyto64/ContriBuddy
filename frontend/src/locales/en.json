@@ -2,7 +2,10 @@
   "nav": {
     "home": "Home",
     "findProjects": "Find Projects",
-    "language": "Language"
+    "language": "Language",
+    "loginWithGitHub": "Login with GitHub",
+    "viewProfile": "View GitHub Profile",
+    "logout": "Logout"
   },
   "home": {
     "title": "Find Your Next",
@@ -87,6 +90,15 @@
     "tryAgain": "Try Again",
     "close": "Close"
   },
+  "auth": {
+    "signingIn": "Signing in with GitHub",
+    "pleaseWait": "Please wait while we authenticate you...",
+    "signInFailed": "Sign In Failed",
+    "signInSuccess": "Successfully signed in!",
+    "redirecting": "Redirecting you now...",
+    "tryAgain": "Try Again",
+    "backToHome": "Back to Home"
+  },
   "search": {
     "history": {
       "title": "Search History",
@@ -117,16 +129,6 @@
     "analytics": {
       "title": "Analytics Cookies",
       "description": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously."
-    }
-  },
-  "search": {
-    "history": {
-      "title": "Search History",
-      "clear": "Clear All",
-      "remove": "Remove from history",
-      "empty": "No search history yet",
-      "emptyDescription": "Your search history will appear here after you submit skills",
-      "confirmClear": "Are you sure you want to clear all search history?"
     }
   }
 }

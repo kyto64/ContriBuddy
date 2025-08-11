@@ -5,6 +5,7 @@ import compression from 'compression'
 import dotenv from 'dotenv'
 import { githubRouter } from './routes/github.js'
 import { recommendationsRouter } from './routes/recommendations.js'
+import { authRouter } from './routes/auth.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
 // Load environment variables based on NODE_ENV
@@ -60,6 +61,7 @@ app.get('/health', (req, res) => {
 })
 
 // API Routes
+app.use('/api/auth', authRouter)
 app.use('/api/github', githubRouter)
 app.use('/api/recommendations', recommendationsRouter)
 

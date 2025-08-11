@@ -1,31 +1,66 @@
 import axios from 'axios'
+import type { AxiosInstance } from 'axios'
 import type {
   UserSkills,
   ProjectRecommendation,
   RecommendationResponse,
   GitHubRepo,
   GitHubIssue,
-  ApiResponse
+  ApiResponse,
+  AuthResponse,
+  AuthUser,
+  GitHubAuthUrl
 } from '@/types'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'
 
-const apiClient = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
-  timeout: 30000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
+class ApiClient {
+  private client: AxiosInstance
 
-// Add response interceptor for error handling
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error('API Error:', error.response?.data || error.message)
-    throw error
+  constructor() {
+    this.client = axios.create({
+      baseURL: `${API_BASE_URL}/api`,
+      timeout: 30000,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    // Add request interceptor to include auth token
+    this.client.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('auth_token')
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+      },
+      (error) => Promise.reject(error)
+    )
+
+    // Add response interceptor for error handling
+    this.client.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        console.error('API Error:', error.response?.data || error.message)
+
+        // Handle auth errors
+        if (error.response?.status === 401) {
+          localStorage.removeItem('auth_token')
+          // Optionally redirect to login or emit auth error event
+        }
+
+        throw error
+      }
+    )
   }
-)
+
+  get axiosInstance() {
+    return this.client
+  }
+}
+
+const apiClient = new ApiClient().axiosInstance
 
 export class ApiService {
   /**
@@ -135,7 +170,7 @@ export class ApiService {
     }
   }
 
-  /**
+    /**
    * Get good first issues for a repository
    */
   static async getGoodFirstIssues(owner: string, repo: string): Promise<GitHubIssue[]> {
@@ -153,6 +188,74 @@ export class ApiService {
       console.error(`Error fetching good first issues for ${owner}/${repo}:`, error)
       throw new Error('Failed to fetch good first issues. Please try again.')
     }
+  }
+
+  // Authentication methods
+
+  /**
+   * Get GitHub OAuth URL for authentication
+   */
+  static async getGitHubAuthUrl(): Promise<GitHubAuthUrl> {
+    try {
+      const response = await apiClient.get<GitHubAuthUrl>('/auth/github/url')
+      return response.data
+    } catch (error) {
+      console.error('Error getting GitHub auth URL:', error)
+      throw new Error('Failed to get GitHub authentication URL')
+    }
+  }
+
+  /**
+   * Handle GitHub OAuth callback
+   */
+  static async handleGitHubCallback(code: string): Promise<AuthResponse> {
+    try {
+      const response = await apiClient.post<AuthResponse>('/auth/github/callback', { code })
+
+      if (response.data.success && response.data.token) {
+        // Store token in localStorage
+        localStorage.setItem('auth_token', response.data.token)
+      }
+
+      return response.data
+    } catch (error) {
+      console.error('Error handling GitHub callback:', error)
+      throw new Error('Failed to authenticate with GitHub')
+    }
+  }
+
+  /**
+   * Get current user profile
+   */
+  static async getCurrentUser(): Promise<AuthUser> {
+    try {
+      const response = await apiClient.get<{ user: AuthUser }>('/auth/me')
+      return response.data.user
+    } catch (error) {
+      console.error('Error getting current user:', error)
+      throw new Error('Failed to get user profile')
+    }
+  }
+
+  /**
+   * Logout user
+   */
+  static async logout(): Promise<void> {
+    try {
+      await apiClient.post('/auth/logout')
+    } catch (error) {
+      console.error('Error during logout:', error)
+    } finally {
+      // Always remove token from localStorage
+      localStorage.removeItem('auth_token')
+    }
+  }
+
+  /**
+   * Check if user is authenticated
+   */
+  static isAuthenticated(): boolean {
+    return !!localStorage.getItem('auth_token')
   }
 
   /**

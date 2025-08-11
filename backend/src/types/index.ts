@@ -25,6 +25,51 @@ export interface GitHubRepo {
   } | null
 }
 
+// User Authentication Types
+export interface GitHubUser {
+  id: number
+  login: string
+  name: string | null
+  email: string | null
+  avatar_url: string
+  bio: string | null
+  company: string | null
+  location: string | null
+  blog: string | null
+  public_repos: number
+  public_gists: number
+  followers: number
+  following: number
+  created_at: string
+  updated_at: string
+}
+
+export interface AuthUser {
+  id: number
+  githubId: number
+  login: string
+  name: string | null
+  email: string | null
+  avatar_url: string
+  bio: string | null
+  company: string | null
+  location: string | null
+  blog: string | null
+  public_repos: number
+  followers: number
+  following: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface JWTPayload {
+  userId: number
+  githubId: number
+  login: string
+  iat?: number
+  exp?: number
+}
+
 export interface GitHubIssue {
   id: number
   number: number

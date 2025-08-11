@@ -36,6 +36,34 @@ export interface GitHubIssue {
   }
 }
 
+// Authentication types
+export interface AuthUser {
+  id: number
+  githubId: number
+  login: string
+  name: string | null
+  email: string | null
+  avatar_url: string
+  bio: string | null
+  company: string | null
+  location: string | null
+  blog: string | null
+  public_repos: number
+  followers: number
+  following: number
+}
+
+export interface AuthResponse {
+  success: boolean
+  token: string
+  user: AuthUser
+}
+
+export interface GitHubAuthUrl {
+  url: string
+  clientId: string
+}
+
 // Application types
 export interface UserSkills {
   languages: string[]
