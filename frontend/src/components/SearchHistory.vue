@@ -138,7 +138,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user'
-import type { FormattedSearchHistoryItem, UserSkills } from '@/types'
+import type { FormattedSearchHistoryItem, SkillsFormData } from '@/types'
 
 const { t } = useI18n()
 const userStore = useUserStore()
@@ -156,7 +156,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 // Emit events
 const emit = defineEmits<{
-  historyItemSelected: [skills: UserSkills]
+  historyItemSelected: [skills: SkillsFormData]
 }>()
 
 // Computed
@@ -182,7 +182,7 @@ function clearSearchHistory() {
   }
 }
 
-function generateFallbackLabel(skills: UserSkills): string {
+function generateFallbackLabel(skills: SkillsFormData): string {
   const parts: string[] = []
 
   if (skills.languages.length > 0) {

@@ -1,13 +1,15 @@
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import type {
-  UserSkills,
+  SkillsFormData,
   ProjectRecommendation,
   RecommendationResponse,
   GitHubRepo,
   GitHubIssue,
   ApiResponse,
   AuthResponse,
+  SkillAnalysisResult,
+  AnalysisStatus,
   AuthUser,
   GitHubAuthUrl
 } from '@/types'
@@ -67,7 +69,7 @@ export class ApiService {
    * Generate project recommendations based on user skills
    */
   static async generateRecommendations(
-    skills: UserSkills,
+    skills: SkillsFormData,
     filters: Record<string, any> = {}
   ): Promise<ProjectRecommendation[]> {
     try {
@@ -276,6 +278,46 @@ export class ApiService {
       console.error(`Error fetching trending ${language} repositories:`, error)
       throw new Error('Failed to fetch trending repositories. Please try again.')
     }
+  }
+
+  /**
+   * Store GitHub access token for skill analysis
+   */
+  static async storeGitHubToken(accessToken: string): Promise<any> {
+    const response = await apiClient.post('/skills/store-token', { accessToken })
+    return response.data
+  }
+
+  /**
+   * Analyze user's skills from GitHub repositories
+   */
+  static async analyzeSkills(): Promise<SkillAnalysisResult> {
+    const response = await apiClient.post('/skills/analyze')
+    return response.data.data
+  }
+
+  /**
+   * Get user's stored skill analysis
+   */
+  static async getSkillAnalysis(): Promise<SkillAnalysisResult | null> {
+    const response = await apiClient.get('/skills/my-analysis')
+    return response.data.data
+  }
+
+  /**
+   * Delete user's skill analysis
+   */
+  static async deleteSkillAnalysis(): Promise<any> {
+    const response = await apiClient.delete('/skills/my-analysis')
+    return response.data
+  }
+
+  /**
+   * Get skill analysis status
+   */
+  static async getSkillAnalysisStatus(): Promise<AnalysisStatus> {
+    const response = await apiClient.get('/skills/status')
+    return response.data.data
   }
 
   /**

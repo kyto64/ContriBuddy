@@ -11,6 +11,12 @@
         </p>
       </div>
 
+      <!-- Skill Analysis Component -->
+      <SkillAnalysis
+        @login-required="handleLoginRequired"
+        @skills-applied="handleSkillsApplied"
+      />
+
       <!-- Skills Form -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Main Form -->
@@ -194,12 +200,15 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user'
+import { useAuthStore } from '@/stores/auth'
 import SkillTag from '@/components/SkillTag.vue'
 import SearchHistory from '@/components/SearchHistory.vue'
-import type { UserSkills } from '@/types'
+import SkillAnalysis from '@/components/SkillAnalysis.vue'
+import type { SkillsFormData } from '@/types'
 
 const router = useRouter()
 const userStore = useUserStore()
+const authStore = useAuthStore()
 const { t } = useI18n()
 
 // Form state
@@ -208,7 +217,7 @@ const newFramework = ref('')
 const newInterest = ref('')
 
 // Initialize skills from store or defaults
-const skills = ref<UserSkills>({
+const skills = ref<SkillsFormData>({
   languages: [...userStore.skills.languages],
   frameworks: [...userStore.skills.frameworks],
   interests: [...userStore.skills.interests],
@@ -274,7 +283,7 @@ const addLanguageFromSuggestion = (language: string) => {
 }
 
 const removeLanguage = (language: string) => {
-  skills.value.languages = skills.value.languages.filter(l => l !== language)
+  skills.value.languages = skills.value.languages.filter((l: string) => l !== language)
 }
 
 const addFramework = () => {
@@ -291,7 +300,7 @@ const addFrameworkFromSuggestion = (framework: string) => {
 }
 
 const removeFramework = (framework: string) => {
-  skills.value.frameworks = skills.value.frameworks.filter(f => f !== framework)
+  skills.value.frameworks = skills.value.frameworks.filter((f: string) => f !== framework)
 }
 
 const addInterest = () => {
@@ -308,7 +317,7 @@ const addInterestFromSuggestion = (interest: string) => {
 }
 
 const removeInterest = (interest: string) => {
-  skills.value.interests = skills.value.interests.filter(i => i !== interest)
+  skills.value.interests = skills.value.interests.filter((i: string) => i !== interest)
 }
 
 // Generate recommendations
@@ -332,7 +341,28 @@ const generateRecommendations = async () => {
 }
 
 // Handle search history item selection
-const onHistoryItemSelected = (historySkills: UserSkills) => {
+const onHistoryItemSelected = (historySkills: SkillsFormData) => {
   skills.value = { ...historySkills }
+}
+
+// Handle skill analysis events
+const handleLoginRequired = async () => {
+  try {
+    const authUrl = await authStore.loginWithGitHub()
+    window.location.href = authUrl
+  } catch (error) {
+    console.error('Login failed:', error)
+    // Could show error notification here
+  }
+}
+
+const handleSkillsApplied = (detectedSkills: SkillsFormData) => {
+  // Apply detected skills to the form
+  skills.value = {
+    languages: [...new Set([...skills.value.languages, ...detectedSkills.languages])],
+    frameworks: [...new Set([...skills.value.frameworks, ...detectedSkills.frameworks])],
+    interests: [...new Set([...skills.value.interests, ...detectedSkills.interests])],
+    experienceLevel: detectedSkills.experienceLevel || skills.value.experienceLevel
+  }
 }
 </script>

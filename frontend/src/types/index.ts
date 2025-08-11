@@ -65,12 +65,58 @@ export interface GitHubAuthUrl {
 }
 
 // Application types
-export interface UserSkills {
+export interface SkillsFormData {
   languages: string[]
   frameworks: string[]
   interests: string[]
   experienceLevel: 'beginner' | 'intermediate' | 'advanced'
 }
+
+// Skill Analysis Types
+export interface LanguageSkill {
+  name: string
+  level: 'beginner' | 'intermediate' | 'advanced'
+  confidence: number
+}
+
+export interface FrameworkSkill {
+  name: string
+  level: 'beginner' | 'intermediate' | 'advanced'
+  confidence: number
+}
+
+export interface SkillAnalysisResult {
+  confidence: number
+  languages: LanguageSkill[]
+  frameworks: FrameworkSkill[]
+  interests: string[]
+  experienceLevel: 'beginner' | 'intermediate' | 'advanced'
+  summary: {
+    totalRepositories: number
+    publicRepositories: number
+    estimatedCommits: number
+    recentActivity: string
+  }
+  analyzedAt?: string
+  githubUser?: {
+    login: string
+    name: string | null
+    avatar_url: string
+  }
+}
+
+export interface AnalysisStatus {
+  hasGitHubToken: boolean
+  hasAnalysis: boolean
+  lastAnalyzedAt: string | null
+  githubUser: {
+    login: string
+    name: string | null
+    avatar_url: string
+  } | null
+}
+
+// API Response Types
 
 export interface ProjectRecommendation {
   repo: GitHubRepo
@@ -103,7 +149,7 @@ export interface ApiResponse<T = any> {
 // Search History types
 export interface SearchHistoryItem {
   id: string
-  skills: UserSkills
+  skills: SkillsFormData
   timestamp: number
   label?: string
 }

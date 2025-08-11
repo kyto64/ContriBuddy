@@ -7,7 +7,15 @@ export const authRouter = Router()
 
 // In-memory user storage (in production, use a database)
 const users = new Map<number, AuthUser>()
+const userAccessTokens = new Map<number, string>() // Store GitHub access tokens
 let nextUserId = 1
+
+/**
+ * Get GitHub access token for a user
+ */
+export function getUserAccessToken(userId: number): string | undefined {
+  return userAccessTokens.get(userId)
+}
 
 /**
  * GitHub OAuth callback
@@ -50,6 +58,10 @@ authRouter.post('/github/callback', async (req: Request, res: Response): Promise
       users.set(authUser.id, authUser)
       existingUser = authUser
     }
+
+    // Store the GitHub access token for this user
+    userAccessTokens.set(existingUser.id, accessToken)
+    console.log(`💾 Stored access token for user ${existingUser.id} (${existingUser.login})`)
 
     // Generate JWT token
     const tokenPayload: Omit<JWTPayload, 'iat' | 'exp'> = {
@@ -153,7 +165,7 @@ authRouter.get('/github/url', (req: Request, res: Response): void => {
   }
 
   const redirectUri = `${process.env.SERVICE_URL}/auth/github/callback`
-  const scope = 'user:email read:user'
+  const scope = 'user:email read:user public_repo'
 
   const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}`
 

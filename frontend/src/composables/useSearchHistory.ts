@@ -1,5 +1,5 @@
 import { ref, computed, onUnmounted } from 'vue'
-import type { UserSkills, SearchHistoryItem, FormattedSearchHistoryItem } from '@/types'
+import type { SkillsFormData, SearchHistoryItem, FormattedSearchHistoryItem } from '@/types'
 import { useCookieConsent, onConsentChange } from './useCookieConsent'
 
 const COOKIE_NAME = 'contribuddy_search_history'
@@ -54,7 +54,7 @@ function generateId(): string {
 /**
  * Generate a human-readable label for search history
  */
-function generateLabel(skills: UserSkills): string {
+function generateLabel(skills: SkillsFormData): string {
   const parts: string[] = []
 
   if (skills.languages.length > 0) {
@@ -78,7 +78,7 @@ function generateLabel(skills: UserSkills): string {
 /**
  * Check if two skills objects are similar (to avoid duplicate entries)
  */
-function areSkillsSimilar(skills1: UserSkills, skills2: UserSkills): boolean {
+function areSkillsSimilar(skills1: SkillsFormData, skills2: SkillsFormData): boolean {
   const sameLanguages = JSON.stringify(skills1.languages.sort()) === JSON.stringify(skills2.languages.sort())
   const sameFrameworks = JSON.stringify(skills1.frameworks.sort()) === JSON.stringify(skills2.frameworks.sort())
   const sameInterests = JSON.stringify(skills1.interests.sort()) === JSON.stringify(skills2.interests.sort())
@@ -135,7 +135,7 @@ export function useSearchHistory() {
   /**
    * Add a new search to history (only if functional cookies are allowed)
    */
-  function addToHistory(skills: UserSkills): void {
+  function addToHistory(skills: SkillsFormData): void {
     if (!canUseFunctional.value) {
       return
     }

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { UserSkills, ProjectRecommendation } from '@/types'
+import type { SkillsFormData, ProjectRecommendation } from '@/types'
 import { useSearchHistory } from '@/composables/useSearchHistory'
 
 export const useUserStore = defineStore('user', () => {
@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
   const { searchHistory, formattedHistory, addToHistory, removeFromHistory, clearHistory } = useSearchHistory()
 
   // State
-  const skills = ref<UserSkills>({
+  const skills = ref<SkillsFormData>({
     languages: [],
     frameworks: [],
     interests: [],
@@ -33,7 +33,7 @@ export const useUserStore = defineStore('user', () => {
   )
 
   // Actions
-  function updateSkills(newSkills: Partial<UserSkills>) {
+  function updateSkills(newSkills: Partial<SkillsFormData>) {
     const oldSkills = { ...skills.value }
     skills.value = { ...skills.value, ...newSkills }
 
@@ -52,7 +52,7 @@ export const useUserStore = defineStore('user', () => {
     clearRecommendations()
   }
 
-  function loadSkillsFromHistory(historySkills: UserSkills) {
+  function loadSkillsFromHistory(historySkills: SkillsFormData) {
     skills.value = { ...historySkills }
     clearRecommendations()
   }

@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import { githubRouter } from './routes/github.js'
 import { recommendationsRouter } from './routes/recommendations.js'
 import { authRouter } from './routes/auth.js'
+import { skillsRouter } from './routes/skills.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
 // Load environment variables based on NODE_ENV
@@ -64,6 +65,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRouter)
 app.use('/api/github', githubRouter)
 app.use('/api/recommendations', recommendationsRouter)
+app.use('/api/skills', skillsRouter)
 
 // 404 handler
 app.use('*', (req, res) => {

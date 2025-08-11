@@ -169,7 +169,7 @@ import { useUserStore } from '@/stores/user'
 import { ApiService } from '@/services/api'
 import ProjectCard from '@/components/ProjectCard.vue'
 import SearchHistory from '@/components/SearchHistory.vue'
-import type { ProjectRecommendation, UserSkills } from '@/types'
+import type { ProjectRecommendation, SkillsFormData } from '@/types'
 
 const userStore = useUserStore()
 
@@ -238,7 +238,7 @@ const loadRecommendations = async () => {
 }
 
 // Search History Methods
-const onHistoryItemSelected = async (historySkills: UserSkills) => {
+const onHistoryItemSelected = async (historySkills: SkillsFormData) => {
   showHistoryDropdown.value = false
   userStore.loadSkillsFromHistory(historySkills)
   await loadRecommendations()

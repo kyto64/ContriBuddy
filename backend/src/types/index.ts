@@ -62,6 +62,34 @@ export interface AuthUser {
   updatedAt: string
 }
 
+// Skill Analysis Types
+export interface LanguageSkill {
+  name: string
+  level: 'beginner' | 'intermediate' | 'advanced'
+  confidence: number
+}
+
+export interface FrameworkSkill {
+  name: string
+  level: 'beginner' | 'intermediate' | 'advanced'
+  confidence: number
+}
+
+export interface SkillAnalysisResult {
+  confidence: number
+  languages: LanguageSkill[]
+  frameworks: FrameworkSkill[]
+  interests: string[]
+  experienceLevel: 'beginner' | 'intermediate' | 'advanced'
+  summary: {
+    totalRepositories: number
+    publicRepositories: number
+    estimatedCommits: number
+    recentActivity: string
+  }
+}
+
+// JWT Token Types
 export interface JWTPayload {
   userId: number
   githubId: number
