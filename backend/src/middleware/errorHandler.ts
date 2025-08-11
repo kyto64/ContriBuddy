@@ -9,7 +9,7 @@ export const errorHandler = (
   error: AppError,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   const statusCode = error.statusCode || 500
   const status = error.status || 'error'

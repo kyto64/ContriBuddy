@@ -164,14 +164,13 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch, onUnmounted } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { ApiService } from '@/services/api'
 import ProjectCard from '@/components/ProjectCard.vue'
 import SearchHistory from '@/components/SearchHistory.vue'
 import type { ProjectRecommendation, UserSkills } from '@/types'
 
-const router = useRouter()
 const userStore = useUserStore()
 
 const recommendations = ref<ProjectRecommendation[]>([])

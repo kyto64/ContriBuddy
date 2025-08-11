@@ -54,7 +54,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { ChevronDownIcon, LanguageIcon } from '@heroicons/vue/24/outline'
 import { saveLocale } from '../i18n'
 
-const { locale, t } = useI18n()
+const { locale } = useI18n()
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },

@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { RecommendationService } from '../services/recommendations.js'
 import { z } from 'zod'
 import type { Request, Response } from 'express'
-import type { ApiResponse, RecommendationRequest, RecommendationResponse, SearchFilters } from '../types/index.js'
+import type { ApiResponse, RecommendationResponse, SearchFilters } from '../types/index.js'
 
 export const recommendationsRouter = Router()
 
