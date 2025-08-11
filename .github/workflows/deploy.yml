@@ -21,6 +21,7 @@ jobs:
           echo "NODE_ENV=production" >> backend/.env.production
           echo "PORT=3000" >> backend/.env.production
           echo "SERVICE_URL=${{ vars.SERVICE_URL }}" >> backend/.env.production
+          echo "ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS }}" >> backend/.env.production
           echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> backend/.env.production
           echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> backend/.env.production
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> backend/.env.production
