@@ -23,7 +23,8 @@ app.use(compression())
 
 // CORS configuration
 const allowedOrigins = [
-  process.env.SERVICE_URL,
+  // SERVICE_URL is a comma-separated list of allowed origins
+  ...(process.env.SERVICE_URL?.split(',') || []),
 ].filter(Boolean)
 
 app.use(cors({
