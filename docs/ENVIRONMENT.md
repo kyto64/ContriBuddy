@@ -23,3 +23,4 @@
 
 - `frontend/vite.config.ts` proxies `/api` to `http://localhost:3001` during development.
 - In production the frontend runs on Nginx and the backend on Node/Express.
+- OAuth scopes: `user:email`, `read:user`, `public_repo`. Personalized recommendations leverage the OAuth access token kept in memory (non-persistent) to call GitHub on behalf of the user.

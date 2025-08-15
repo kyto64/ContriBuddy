@@ -65,6 +65,11 @@ Auth: JWT (`Authorization: Bearer <token>`). Obtain it via `/api/auth/github/cal
 - GET `/recommendations/health`
   - Success: `{ status: 'ok', service: 'recommendations', timestamp: string }`
 
+- POST `/recommendations/generate/personalized` (JWT required)
+  - Body: same as `/recommendations/generate`
+  - Uses GitHub signals (stars, following) to augment the candidate set and excludes likely contributed repos.
+  - Success: `{ success: true, data: { recommendations: ProjectRecommendation[], totalCount: number } }`
+
 ## Skill Analysis (JWT required)
 
 - POST `/skills/analyze`

@@ -9,6 +9,9 @@ ContriBuddy helps you discover open‑source projects and contribution opportuni
 - Personalized recommendations by languages, frameworks, interests, and experience level
 - Beginner‑friendly issue discovery (good first issues, etc.)
 - Live data from GitHub for repository search and stats
+- Analyze starred and followed repositories
+- Exclude repositories you've already contributed to (approximation)
+- Basic collaborative filtering using your stars and followed users
 - Modern UI with Vue 3 + Vite + Tailwind, state managed by Pinia
 
 ## 🚀 Quick Start
@@ -89,6 +92,8 @@ Base path: `/api`
   - `POST /recommendations/generate` (send `skills` and optional `filters`)
   - `GET  /recommendations/trending/:language?limit`
   - `GET  /recommendations/health`
+  - `POST /recommendations/generate/personalized` (JWT required)
+
 
 - Skill analysis (JWT required)
   - `POST   /skills/analyze`

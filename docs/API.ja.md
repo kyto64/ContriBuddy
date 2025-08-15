@@ -65,6 +65,11 @@
 - GET `/recommendations/health`
   - 成功: `{ status: 'ok', service: 'recommendations', timestamp: string }`
 
+- POST `/recommendations/generate/personalized`（要JWT）
+  - リクエスト Body は `/recommendations/generate` と同様
+  - GitHub のスター/フォロー情報を用いて候補集合を拡張し、最近の公開イベントから推定した「既に貢献済み」のリポジトリを除外します。
+  - 成功: `{ success: true, data: { recommendations: ProjectRecommendation[], totalCount: number } }`
+
 ## スキル分析（要JWT）
 
 - POST `/skills/analyze`

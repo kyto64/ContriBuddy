@@ -23,3 +23,4 @@
 
 - `frontend/vite.config.ts` は開発時 `/api` を `http://localhost:3001` にプロキシします。
 - 本番デプロイでは Frontend は Nginx、Backend は Node（Express）で稼働します。
+- OAuth スコープ: `user:email`, `read:user`, `public_repo`。パーソナライズ推薦は、（永続化しない）メモリ上のアクセストークンを用いてユーザー代理で GitHub API を呼び出します。

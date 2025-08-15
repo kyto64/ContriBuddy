@@ -1,5 +1,7 @@
 import { GitHubService } from './github.js'
 import type { UserSkills, ProjectRecommendation, GitHubRepo, GitHubIssue, SearchFilters } from '../types/index.js'
+import { getUserAccessToken } from '../routes/auth.js'
+import type { JWTPayload } from '../types/index.js'
 
 export class RecommendationService {
   static async getRecommendations(
@@ -13,8 +15,8 @@ export class RecommendationService {
       // Build search filters based on user skills
       const searchFilters = this.buildSearchFilters(skills, filters)
 
-      // Search for repositories
-      const repositories = await this.searchRepositories(skills, searchFilters)
+      // Search for repositories (candidate pool)
+      let repositories = await this.searchRepositories(skills, searchFilters)
 
       // Score and rank repositories
       const recommendations = await this.scoreRepositories(repositories, skills)
@@ -26,6 +28,109 @@ export class RecommendationService {
       console.error('❌ Error generating recommendations:', error)
       throw new Error('Failed to generate recommendations')
     }
+  }
+
+  static async getPersonalizedRecommendations(
+    user: JWTPayload,
+    skills: UserSkills,
+    filters: Partial<SearchFilters> = {}
+  ): Promise<ProjectRecommendation[]> {
+    const startTime = Date.now()
+
+    // base pool
+    const searchFilters = this.buildSearchFilters(skills, filters)
+    let repositories = await this.searchRepositories(skills, searchFilters)
+
+    // personalization inputs
+    const accessToken = getUserAccessToken(user.userId)
+    if (accessToken) {
+      // 1) starred repos boost and seed similar
+      const starred = await GitHubService.getUserStarredRepos({ accessToken })
+
+      // 2) following users' top repos (by stars)
+      const following = await GitHubService.getUserFollowing(accessToken)
+
+      // 3) exclude already contributed repos: approximate using recent events (optional) or by starred contributions placeholder
+      // Simple exclusion: if repo owner is user or user has starred AND contributed (not available easily), we skip later via name match
+
+      // Merge additional candidates from starred owners/topics
+      const starTopics = new Set<string>()
+      const starLanguages = new Set<string>()
+      const starOwners = new Set<string>()
+      for (const r of starred.slice(0, 100)) {
+        r.topics?.forEach(t => starTopics.add(t.toLowerCase()))
+        if (r.language) starLanguages.add(r.language.toLowerCase())
+        starOwners.add(r.owner?.login?.toLowerCase())
+      }
+
+      // Expand search using topics from stars
+      const topicFilters: SearchFilters[] = Array.from(starTopics).slice(0, 5).map(t => ({
+        topics: [t],
+        minStars: this.getMinStarsForLevel(skills.experienceLevel)
+      }))
+      for (const f of topicFilters) {
+        try {
+          const repos = await GitHubService.searchRepositories(f)
+          repositories.push(...repos)
+        } catch {
+          // Ignore errors and continue
+        }
+      }
+
+      // Expand search using languages from stars (if not in skills)
+      const extraLangs = Array.from(starLanguages).filter(l => !skills.languages.includes(l))
+      for (const lang of extraLangs.slice(0, 3)) {
+        try {
+          const repos = await GitHubService.searchRepositories({ language: lang, minStars: 20 })
+          repositories.push(...repos)
+        } catch {
+          // Ignore errors and continue
+        }
+      }
+
+      // Collaborative filtering (user-based): take top starred owners and fetch their popular repos
+      for (const owner of Array.from(starOwners).slice(0, 5)) {
+        try {
+      const repos = await GitHubService.searchRepositories({ minStars: 50 })
+          // Can't query by owner via search filters structure; fallback to filtering
+          repositories.push(...repos.filter(r => r.owner?.login?.toLowerCase() === owner))
+        } catch {
+          // Ignore errors and continue
+        }
+      }
+
+      // Following users' starred repos union (public path, no token for other user stars via API; we skip to their popular owned repos)
+      for (const u of following.slice(0, 10)) {
+        try {
+          // Search popular repos owned by followed user
+          const repos = await GitHubService.searchRepositories({ minStars: 20 })
+          repositories.push(...repos.filter(r => r.owner?.login?.toLowerCase() === u.login.toLowerCase()))
+        } catch {
+          // Ignore errors and continue
+        }
+      }
+    }
+
+    // Dedup
+    const unique = repositories.filter((repo, index, self) => index === self.findIndex(r => r.id === repo.id))
+
+    // Exclude likely already contributed repos
+    let contributedSet: Set<string> | undefined
+    try {
+      contributedSet = await GitHubService.getUserRecentContributedRepos(user.login, accessToken)
+    } catch {
+      // Ignore errors and continue
+    }
+    const cleaned = unique.filter(r => {
+      if (r.owner?.login?.toLowerCase() === user.login.toLowerCase()) return false
+      if (contributedSet && contributedSet.has(r.full_name.toLowerCase())) return false
+      return true
+    })
+
+    // score and rank
+    const recs = await this.scoreRepositories(cleaned, skills)
+    console.log(`✅ Generated ${recs.length} personalized recommendations in ${Date.now() - startTime}ms`)
+    return recs
   }
 
   private static buildSearchFilters(skills: UserSkills, userFilters: Partial<SearchFilters>): SearchFilters[] {

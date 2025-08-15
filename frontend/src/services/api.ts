@@ -73,10 +73,9 @@ export class ApiService {
     filters: Record<string, any> = {}
   ): Promise<ProjectRecommendation[]> {
     try {
-      const response = await apiClient.post<ApiResponse<RecommendationResponse>>(
-        '/recommendations/generate',
-        { skills, filters }
-      )
+      const authed = ApiService.isAuthenticated()
+      const url = authed ? '/recommendations/generate/personalized' : '/recommendations/generate'
+      const response = await apiClient.post<ApiResponse<RecommendationResponse>>(url, { skills, filters })
 
       if (!response.data.success) {
         throw new Error(response.data.error || 'Failed to generate recommendations')

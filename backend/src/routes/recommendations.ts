@@ -3,6 +3,8 @@ import { RecommendationService } from '../services/recommendations.js'
 import { z } from 'zod'
 import type { Request, Response } from 'express'
 import type { ApiResponse, RecommendationResponse, SearchFilters } from '../types/index.js'
+import { authenticateToken } from '../middleware/auth.js'
+import { getUserAccessToken } from './auth.js'
 
 export const recommendationsRouter = Router()
 
@@ -40,7 +42,7 @@ recommendationsRouter.post('/generate', async (req: Request, res: Response): Pro
       return
     }
 
-    const { skills, filters = {} } = validation.data
+  const { skills, filters = {} } = validation.data
 
     // Validate that user provided some skills or interests
     if (skills.languages.length === 0 && skills.frameworks.length === 0 && skills.interests.length === 0) {
@@ -102,6 +104,47 @@ recommendationsRouter.post('/generate', async (req: Request, res: Response): Pro
       message: error instanceof Error ? error.message : 'Unknown error'
     }
     res.status(500).json(response)
+  }
+})
+
+recommendationsRouter.post('/generate/personalized', authenticateToken, async (req: Request, res: Response): Promise<void> => {
+  try {
+    const validation = RecommendationRequestSchema.safeParse(req.body)
+    if (!validation.success) {
+      res.status(400).json({ success: false, error: 'Invalid request data', message: validation.error.errors.map(e => e.message).join(', ') })
+      return
+    }
+
+    const { skills, filters = {} } = validation.data
+
+    // user and token
+  const user = req.user!
+  const token = getUserAccessToken(user.userId)
+
+    if (!token) {
+      // Fallback to non-personalized
+      const clean: Partial<SearchFilters> = {}
+      if (filters.language) clean.language = filters.language
+      if (typeof filters.minStars === 'number') clean.minStars = filters.minStars
+      if (typeof filters.maxStars === 'number') clean.maxStars = filters.maxStars
+      if (typeof filters.hasGoodFirstIssues === 'boolean') clean.hasGoodFirstIssues = filters.hasGoodFirstIssues
+      if (Array.isArray(filters.topics)) clean.topics = filters.topics
+      const recs = await RecommendationService.getRecommendations(skills, clean)
+      res.json({ success: true, data: { recommendations: recs, totalCount: recs.length, processingTime: 0 } })
+      return
+    }
+
+    const clean: Partial<SearchFilters> = {}
+    if (filters.language) clean.language = filters.language
+    if (typeof filters.minStars === 'number') clean.minStars = filters.minStars
+    if (typeof filters.maxStars === 'number') clean.maxStars = filters.maxStars
+    if (typeof filters.hasGoodFirstIssues === 'boolean') clean.hasGoodFirstIssues = filters.hasGoodFirstIssues
+    if (Array.isArray(filters.topics)) clean.topics = filters.topics
+    const recs = await RecommendationService.getPersonalizedRecommendations(user, skills, clean)
+    res.json({ success: true, data: { recommendations: recs, totalCount: recs.length } })
+  } catch (error) {
+    console.error('❌ Error generating personalized recommendations:', error)
+    res.status(500).json({ success: false, error: 'Failed to generate personalized recommendations' })
   }
 })
 
