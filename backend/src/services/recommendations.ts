@@ -16,7 +16,7 @@ export class RecommendationService {
       const searchFilters = this.buildSearchFilters(skills, filters)
 
       // Search for repositories (candidate pool)
-      let repositories = await this.searchRepositories(skills, searchFilters)
+      const repositories = await this.searchRepositories(skills, searchFilters)
 
       // Score and rank repositories
       const recommendations = await this.scoreRepositories(repositories, skills)
@@ -39,7 +39,7 @@ export class RecommendationService {
 
     // base pool
     const searchFilters = this.buildSearchFilters(skills, filters)
-    let repositories = await this.searchRepositories(skills, searchFilters)
+    const repositories = await this.searchRepositories(skills, searchFilters)
 
     // personalization inputs
     const accessToken = getUserAccessToken(user.userId)
