@@ -555,8 +555,7 @@ export class ContributionAnalysisService {
       new Date(b).getTime() - new Date(a).getTime()
     )
 
-    let streak = 0
-    const today = new Date().toDateString()
+  let streak = 0
     let checkDate = new Date()
 
     for (const dateStr of uniqueDates) {

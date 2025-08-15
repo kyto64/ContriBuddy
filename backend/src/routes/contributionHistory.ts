@@ -1,10 +1,9 @@
 import express from 'express'
 import { ContributionAnalysisService } from '../services/contributionAnalysis.js'
-import { GitHubService } from '../services/github.js'
 import { authenticateToken } from '../middleware/auth.js'
 import { getUserAccessToken } from './auth.js'
 import axios from 'axios'
-import type { ContributionHistory, GitHubUser, JWTPayload } from '../types/index.js'
+import type { GitHubUser, JWTPayload } from '../types/index.js'
 
 const router = express.Router()
 
@@ -61,7 +60,7 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 
     // 貢献履歴を分析
-    const contributionHistory = await ContributionAnalysisService.analyzeContributionHistory(githubAccessToken, userProfile.login)
+    const contributionHistory = await ContributionAnalysisService.analyzeContributionHistory(githubAccessToken!, userProfile.login)
 
     return res.json({
       success: true,
@@ -99,7 +98,7 @@ router.get('/', authenticateToken, async (req, res) => {
  */
 router.get('/:username', authenticateToken, async (req, res) => {
   try {
-    const { username } = req.params
+    const username = req.params.username as string
     const user = (req as any).user as JWTPayload
 
     if (!user) {
@@ -114,7 +113,7 @@ router.get('/:username', authenticateToken, async (req, res) => {
     }
 
     // 貢献履歴を分析
-    const contributionHistory = await ContributionAnalysisService.analyzeContributionHistory(githubAccessToken, username)
+    const contributionHistory = await ContributionAnalysisService.analyzeContributionHistory(githubAccessToken!, username)
 
     return res.json({
       success: true,
@@ -171,7 +170,7 @@ router.get('/stats/summary', authenticateToken, async (req, res) => {
       return res.status(404).json({ error: 'GitHub user profile not found' })
     }
 
-    const contributionHistory = await ContributionAnalysisService.analyzeContributionHistory(githubAccessToken, userProfile.login)
+    const contributionHistory = await ContributionAnalysisService.analyzeContributionHistory(githubAccessToken!, userProfile.login)
 
     // サマリー情報のみを返す
     return res.json({
