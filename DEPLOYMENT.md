@@ -1,81 +1,62 @@
 # ContriBuddy Deployment Setup Guide
 
-## GitHub Actions Secrets Configuration
+This document reflects the current Fly.io setup (frontend app: `contribuddy`, backend app: `contribuddy-api`).
 
-For automatic deployment to work, you need to configure the following secrets in your GitHub repository:
+## Required Environment Variables (Production)
 
-### Required Secrets
+Backend (`contribuddy-api`):
+- `JWT_SECRET`
+- `GH_CLIENT_ID`
+- `GH_CLIENT_SECRET`
+- `SERVICE_URL` (e.g., `https://contribuddy.fly.dev`)
+- `ALLOWED_ORIGINS` (e.g., `https://contribuddy.fly.dev`)
+- `GITHUB_TOKEN` (optional)
+- `PORT=3000` (match `backend/fly.toml` internal port)
 
-1. **FLY_API_TOKEN**
-   - Description: Your Fly.io API token for deployment
-   - How to get:
-     ```bash
-     flyctl auth token
-     ```
-   - Where to add: Repository Settings > Secrets and variables > Actions > New repository secret
+Frontend (`contribuddy`):
+- `VITE_API_BASE_URL` (e.g., `https://contribuddy-api.fly.dev`)
 
-### Setting up Secrets
+## GitHub Actions Secrets
 
-1. Navigate to your GitHub repository
-2. Go to **Settings** > **Secrets and variables** > **Actions**
-3. Click **New repository secret**
-4. Add the following:
+Set up for automatic deployments:
 
-   | Name | Value | Description |
-   |------|-------|-------------|
-   | `FLY_API_TOKEN` | Your Fly.io token | Used for deploying to Fly.io |
+- `FLY_API_TOKEN`: Fly.io API token
 
-### Environment Setup
+To get a token:
+```bash
+flyctl auth token
+```
 
-Create a production environment in your repository:
+Add it in: Repository Settings > Secrets and variables > Actions > New repository secret
 
-1. Go to **Settings** > **Environments**
-2. Click **New environment**
-3. Name it `production`
-4. Add protection rules if needed (e.g., required reviewers)
+## Environments
+
+Create a `production` environment and add protection rules if needed.
 
 ## Manual Deployment
 
-If you need to deploy manually:
-
 ```bash
-# Deploy backend
+# backend
 cd backend
 flyctl deploy
 
-# Deploy frontend
-cd frontend
+# frontend
+cd ../frontend
 flyctl deploy
 ```
 
+## Runtime/Ports
+
+- Backend: `internal_port = 3000` (`backend/fly.toml`) → container listens on `PORT=3000`
+- Frontend: `internal_port = 80` (`frontend/fly.toml`)
+
 ## Troubleshooting
 
-### Common Issues
-
-1. **Deployment fails with authentication error**
-   - Check that `FRONTEND/BACKEND_FLY_API_TOKEN` is correctly set in GitHub secrets
-   - Verify the token is valid: `flyctl auth whoami`
-
-2. **Build fails**
-   - Check the build logs in GitHub Actions
-   - Ensure all dependencies are correctly specified in package.json
-
-3. **Health check fails**
-   - Verify the backend is running on the correct port (3000)
-   - Check Fly.io logs: `flyctl logs -a contribuddy-api`
-
-### Useful Commands
-
-```bash
-# Check deployment status
-flyctl status -a contribuddy-api
-flyctl status -a contribuddy
-
-# View logs
-flyctl logs -a contribuddy-api
-flyctl logs -a contribuddy
-
-# Scale machines
-flyctl scale count 1 -a contribuddy-api
-flyctl scale count 1 -a contribuddy
-```
+- Authentication errors: verify token via `flyctl auth whoami`, re‑set `FLY_API_TOKEN`
+- Build failures: check GitHub Actions logs and dependency versions
+- Health check failures: probe backend `/health` (`https://<backend-app>.fly.dev/health`)
+- Logs:
+  ```bash
+  flyctl logs -a contribuddy-api
+  flyctl logs -a contribuddy
+  ```

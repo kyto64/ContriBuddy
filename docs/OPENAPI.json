@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ContriBuddy API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    { "url": "http://localhost:3001/api" }
+  ],
+  "paths": {
+    "/auth/github/url": {
+      "get": { "summary": "Get GitHub OAuth URL", "responses": { "200": { "description": "OK" } } }
+    },
+    "/auth/github/callback": {
+      "post": {
+        "summary": "Handle GitHub OAuth callback",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "code": { "type": "string" } }, "required": ["code"] } } } },
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/auth/me": { "get": { "summary": "Get current user", "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } } },
+    "/github/repositories/search": { "get": { "summary": "Search repositories", "parameters": [
+      {"name":"language","in":"query","schema":{"type":"string"}},
+      {"name":"minStars","in":"query","schema":{"type":"integer"}},
+      {"name":"maxStars","in":"query","schema":{"type":"integer"}},
+      {"name":"hasGoodFirstIssues","in":"query","schema":{"type":"boolean"}},
+      {"name":"topics","in":"query","schema":{"type":"string"}}
+    ], "responses": { "200": { "description": "OK" } } } },
+    "/github/repositories/{owner}/{repo}": { "get": { "summary": "Get repository details", "parameters": [
+      {"name":"owner","in":"path","required":true,"schema":{"type":"string"}},
+      {"name":"repo","in":"path","required":true,"schema":{"type":"string"}}
+    ], "responses": { "200": { "description": "OK" } } } },
+    "/github/repositories/{owner}/{repo}/issues": { "get": { "summary": "Get repository issues", "parameters": [
+      {"name":"owner","in":"path","required":true,"schema":{"type":"string"}},
+      {"name":"repo","in":"path","required":true,"schema":{"type":"string"}},
+      {"name":"labels","in":"query","schema":{"type":"string"}}
+    ], "responses": { "200": { "description": "OK" } } } },
+    "/github/repositories/{owner}/{repo}/good-first-issues": { "get": { "summary": "Get good first issues", "parameters": [
+      {"name":"owner","in":"path","required":true,"schema":{"type":"string"}},
+      {"name":"repo","in":"path","required":true,"schema":{"type":"string"}}
+    ], "responses": { "200": { "description": "OK" } } } },
+    "/recommendations/generate": { "post": { "summary": "Generate recommendations", "responses": { "200": { "description": "OK" } } } },
+    "/recommendations/trending/{language}": { "get": { "summary": "Trending repositories by language", "parameters": [
+      {"name":"language","in":"path","required":true,"schema":{"type":"string"}},
+      {"name":"limit","in":"query","schema":{"type":"integer"}}
+    ], "responses": { "200": { "description": "OK" } } } },
+    "/skills/analyze": { "post": { "summary": "Analyze user's skills", "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } } },
+    "/skills/my-analysis": { "get": { "summary": "Get stored analysis", "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } }, "delete": { "summary": "Delete stored analysis", "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } } },
+    "/skills/status": { "get": { "summary": "Get analysis status", "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } } },
+    "/contribution-history": { "get": { "summary": "Get my contribution history", "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } } },
+    "/contribution-history/{username}": { "get": { "summary": "Get contribution history for user", "parameters": [ {"name":"username","in":"path","required":true,"schema":{"type":"string"}} ], "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } } },
+    "/contribution-history/stats/summary": { "get": { "summary": "Get contribution summary", "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } } },
+    "/health": { "get": { "summary": "Health check", "responses": { "200": { "description": "OK" } } } }
+  }
+}
