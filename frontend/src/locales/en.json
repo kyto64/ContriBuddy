@@ -47,7 +47,29 @@
     "getRecommendations": "Get Recommendations",
     "selectLanguages": "Select your programming languages",
     "selectFrameworks": "Select frameworks and libraries you know",
-    "selectInterests": "What areas interest you?"
+    "selectInterests": "What areas interest you?",
+    "analysis": {
+      "title": "GitHub Skills Analysis",
+      "startAnalysis": "Analyze My Skills",
+      "refresh": "Refresh Analysis",
+      "analyzing": "Analyzing your GitHub profile...",
+      "loginRequired": "Login Required",
+      "loginDescription": "Please login with GitHub to analyze your coding skills and get personalized recommendations.",
+      "noAnalysis": "No Analysis Available",
+      "noAnalysisDescription": "Click the analyze button to scan your GitHub profile and discover your skills automatically.",
+      "confidence": "Analysis Confidence",
+      "applyToForm": "Apply to Form",
+      "languages": "Programming Languages",
+      "frameworks": "Frameworks & Tools",
+      "interests": "Interests",
+      "totalRepos": "Total Repos",
+      "publicRepos": "Public Repos",
+      "estimatedCommits": "Est. Commits",
+      "recentActivity": "Recent Activity",
+      "experienceLevel": "Experience Level",
+      "noLanguagesDetected": "No languages detected",
+      "noFrameworksDetected": "No frameworks detected"
+    }
   },
   "recommendations": {
     "title": "Recommended Projects",
@@ -68,7 +90,8 @@
     "projects": "projects",
     "bestMatch": "Best Match",
     "mostStars": "Most Stars",
-    "mostIssues": "Most Issues"
+    "mostIssues": "Most Issues",
+    "match": "match"
   },
   "footer": {
     "description": "ContriBuddy helps developers find meaningful open-source projects to contribute to.",

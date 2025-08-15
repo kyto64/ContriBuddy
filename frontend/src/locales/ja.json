@@ -47,11 +47,33 @@
     "getRecommendations": "推薦を取得",
     "selectLanguages": "プログラミング言語を選択してください",
     "selectFrameworks": "知っているフレームワークやライブラリを選択してください",
-    "selectInterests": "どの分野に興味がありますか？"
+    "selectInterests": "どの分野に興味がありますか？",
+    "analysis": {
+      "title": "GitHubスキル分析",
+      "startAnalysis": "スキルを分析",
+      "refresh": "分析を更新",
+      "analyzing": "GitHubプロフィールを分析中...",
+      "loginRequired": "ログインが必要です",
+      "loginDescription": "GitHubでログインしてスキル分析とパーソナライズされた推薦を受け取ってください。",
+      "noAnalysis": "分析データなし",
+      "noAnalysisDescription": "分析ボタンをクリックしてGitHubプロフィールをスキャンし、スキルを自動的に発見しましょう。",
+      "confidence": "分析信頼度",
+      "applyToForm": "フォームに適用",
+      "languages": "プログラミング言語",
+      "frameworks": "フレームワーク & ツール",
+      "interests": "興味",
+      "totalRepos": "総リポジトリ数",
+      "publicRepos": "公開リポジトリ数",
+      "estimatedCommits": "推定コミット数",
+      "recentActivity": "最近のアクティビティ",
+      "experienceLevel": "経験レベル",
+      "noLanguagesDetected": "言語が検出されませんでした",
+      "noFrameworksDetected": "フレームワークが検出されませんでした"
+    }
   },
   "recommendations": {
     "title": "推薦プロジェクト",
-    "subtitle": "あなたのスキルや興味",
+    "subtitle": "あなたのスキルと興味に基づく",
     "noResults": "条件に合うプロジェクトが見つかりませんでした。",
     "tryDifferent": "スキルや興味を調整してみてください。",
     "backToSkills": "スキル入力に戻る",
@@ -68,7 +90,8 @@
     "projects": "プロジェクト",
     "bestMatch": "ベストマッチ",
     "mostStars": "スター数",
-    "mostIssues": "イシュー数"
+    "mostIssues": "イシュー数",
+    "match": "マッチ"
   },
   "footer": {
     "description": "ContriBuddyは開発者が意義のあるオープンソースプロジェクトを見つけることを支援します。",

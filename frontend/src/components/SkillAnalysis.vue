@@ -118,7 +118,7 @@
               </div>
             </div>
           </div>
-          <p v-else class="text-sm text-gray-500 dark:text-gray-400">No languages detected</p>
+          <p v-else class="text-sm text-gray-500 dark:text-gray-400">{{ $t('skills.analysis.noLanguagesDetected') }}</p>
         </div>
 
         <!-- Frameworks & Tools -->
@@ -140,7 +140,7 @@
               </div>
             </div>
           </div>
-          <p v-else class="text-sm text-gray-500 dark:text-gray-400">No frameworks detected</p>
+          <p v-else class="text-sm text-gray-500 dark:text-gray-400">{{ $t('skills.analysis.noFrameworksDetected') }}</p>
         </div>
       </div>
 

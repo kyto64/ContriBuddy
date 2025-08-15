@@ -33,7 +33,7 @@
           </div>
           <div class="text-sm text-gray-500">%</div>
         </div>
-        <div class="text-xs text-gray-500">match</div>
+        <div class="text-xs text-gray-500">{{ $t('recommendations.match') }}</div>
       </div>
     </div>
 
