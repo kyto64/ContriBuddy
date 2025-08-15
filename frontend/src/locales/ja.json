@@ -2,6 +2,7 @@
   "nav": {
     "home": "ホーム",
     "findProjects": "プロジェクトを探す",
+    "dashboard": "ダッシュボード",
     "language": "言語",
     "loginWithGitHub": "GitHubでログイン",
     "viewProfile": "GitHubプロフィールを見る",
@@ -152,6 +153,38 @@
     "analytics": {
       "title": "分析Cookie",
       "description": "これらのCookieは、匿名で情報を収集・報告することで、訪問者がウェブサイトとどのように相互作用するかを理解するのに役立ちます。"
+    }
+  },
+  "contributionDashboard": {
+    "title": "貢献履歴ダッシュボード",
+    "subtitle": "あなたのOSS貢献実績を可視化",
+    "retry": "再試行",
+    "error": {
+      "title": "エラーが発生しました",
+      "loadFailed": "貢献履歴の読み込みに失敗しました"
+    },
+    "summary": {
+      "totalContributions": "総貢献数",
+      "pullRequests": "プルリクエスト",
+      "issues": "Issue",
+      "commits": "コミット"
+    },
+    "charts": {
+      "monthlyActivity": "月別アクティビティ",
+      "topLanguages": "使用言語トップ",
+      "pullRequests": "プルリクエスト",
+      "issues": "Issue",
+      "commits": "コミット"
+    },
+    "topRepositories": {
+      "title": "最も貢献したリポジトリ",
+      "contributions": "件の貢献"
+    },
+    "stats": {
+      "contributionStreak": "貢献連続日数",
+      "firstContribution": "初回貢献日",
+      "mostActiveRepository": "最もアクティブなリポジトリ",
+      "days": "日"
     }
   }
 }

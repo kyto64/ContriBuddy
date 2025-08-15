@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import SkillsInput from '../views/SkillsInput.vue'
 import Recommendations from '../views/Recommendations.vue'
+import Dashboard from '../views/Dashboard.vue'
 import GitHubCallback from '../views/GitHubCallback.vue'
 
 const router = createRouter({
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/recommendations',
       name: 'recommendations',
       component: Recommendations
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
     },
     {
       path: '/auth/github/callback',

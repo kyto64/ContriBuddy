@@ -89,6 +89,119 @@ export interface SkillAnalysisResult {
   }
 }
 
+// Contribution Analysis Types
+export interface PullRequest {
+  id: number
+  number: number
+  title: string
+  body: string | null
+  state: 'open' | 'closed'
+  htmlUrl: string
+  createdAt: string
+  updatedAt: string
+  closedAt: string | null
+  mergedAt: string | null
+  repository: {
+    name: string
+    fullName: string
+    language: string | null
+    stars: number
+  }
+  additions: number
+  deletions: number
+  changedFiles: number
+  labels: Array<{
+    name: string
+    color: string
+  }>
+}
+
+export interface Issue {
+  id: number
+  number: number
+  title: string
+  body: string | null
+  state: 'open' | 'closed'
+  htmlUrl: string
+  createdAt: string
+  updatedAt: string
+  closedAt: string | null
+  repository: {
+    name: string
+    fullName: string
+    language: string | null
+    stars: number
+  }
+  labels: Array<{
+    name: string
+    color: string
+  }>
+}
+
+export interface Commit {
+  sha: string
+  message: string
+  htmlUrl: string
+  createdAt: string
+  author: {
+    name: string
+    email: string
+  }
+  repository: {
+    name: string
+    fullName: string
+    language: string | null
+    stars: number
+  }
+  stats: {
+    additions: number
+    deletions: number
+    total: number
+  }
+}
+
+export interface ContributionStats {
+  topLanguages: Array<{
+    language: string
+    count: number
+  }>
+  topRepositories: Array<{
+    repository: string
+    count: number
+  }>
+  monthlyActivity: Array<{
+    month: string
+    pullRequests: number
+    issues: number
+    commits: number
+    total: number
+  }>
+  totalAdditions: number
+  totalDeletions: number
+  averagePRSize: number
+  contributionStreak: number
+  firstContribution: string | null
+  mostActiveRepository: string | null
+}
+
+export interface ContributionHistory {
+  username: string
+  analyzedAt: string
+  pullRequests: PullRequest[]
+  issues: Issue[]
+  commits: Commit[]
+  stats: ContributionStats
+  summary: {
+    totalContributions: number
+    totalPullRequests: number
+    totalIssues: number
+    totalCommits: number
+    mergedPullRequests: number
+    closedIssues: number
+    recentActivity: string
+  }
+}
+
 // JWT Token Types
 export interface JWTPayload {
   userId: number

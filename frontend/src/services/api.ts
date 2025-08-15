@@ -332,4 +332,28 @@ export class ApiService {
       return false
     }
   }
+
+  /**
+   * Get contribution history summary
+   */
+  static async getContributionHistorySummary(): Promise<any> {
+    const response = await apiClient.get('/contribution-history/stats/summary')
+    return response.data
+  }
+
+  /**
+   * Get full contribution history
+   */
+  static async getContributionHistory(): Promise<any> {
+    const response = await apiClient.get('/contribution-history')
+    return response.data
+  }
+
+  /**
+   * Get contribution history for specific user
+   */
+  static async getContributionHistoryForUser(username: string): Promise<any> {
+    const response = await apiClient.get(`/contribution-history/${username}`)
+    return response.data
+  }
 }

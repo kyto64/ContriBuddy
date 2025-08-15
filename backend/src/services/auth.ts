@@ -54,8 +54,10 @@ export class AuthService {
     try {
       const response = await axios.get(`${GITHUB_API_BASE}/user`, {
         headers: {
-          Authorization: `token ${accessToken}`,
-          Accept: 'application/vnd.github.v3+json',
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/vnd.github+json',
+          'User-Agent': 'ContriBuddy-App',
+          'X-GitHub-Api-Version': '2022-11-28',
         },
       })
 

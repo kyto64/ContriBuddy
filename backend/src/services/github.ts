@@ -7,9 +7,10 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 const githubApi = axios.create({
   baseURL: GITHUB_API_BASE,
   headers: {
-    'Accept': 'application/vnd.github.v3+json',
+    'Accept': 'application/vnd.github+json',
     'User-Agent': 'ContriBuddy-App',
-    ...(GITHUB_TOKEN && { 'Authorization': `token ${GITHUB_TOKEN}` })
+    'X-GitHub-Api-Version': '2022-11-28',
+    ...(GITHUB_TOKEN && { 'Authorization': `Bearer ${GITHUB_TOKEN}` })
   }
 })
 

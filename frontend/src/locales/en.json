@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "findProjects": "Find Projects",
+    "dashboard": "Dashboard",
     "language": "Language",
     "loginWithGitHub": "Login with GitHub",
     "viewProfile": "View GitHub Profile",
@@ -152,6 +153,38 @@
     "analytics": {
       "title": "Analytics Cookies",
       "description": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously."
+    }
+  },
+  "contributionDashboard": {
+    "title": "Contribution Dashboard",
+    "subtitle": "Visualize your OSS contribution achievements",
+    "retry": "Retry",
+    "error": {
+      "title": "An error occurred",
+      "loadFailed": "Failed to load contribution history"
+    },
+    "summary": {
+      "totalContributions": "Total Contributions",
+      "pullRequests": "Pull Requests",
+      "issues": "Issues",
+      "commits": "Commits"
+    },
+    "charts": {
+      "monthlyActivity": "Monthly Activity",
+      "topLanguages": "Top Languages",
+      "pullRequests": "Pull Requests",
+      "issues": "Issues",
+      "commits": "Commits"
+    },
+    "topRepositories": {
+      "title": "Top Contributing Repositories",
+      "contributions": "contributions"
+    },
+    "stats": {
+      "contributionStreak": "Contribution Streak",
+      "firstContribution": "First Contribution",
+      "mostActiveRepository": "Most Active Repository",
+      "days": "days"
     }
   }
 }

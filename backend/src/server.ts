@@ -7,6 +7,7 @@ import { githubRouter } from './routes/github.js'
 import { recommendationsRouter } from './routes/recommendations.js'
 import { authRouter } from './routes/auth.js'
 import { skillsRouter } from './routes/skills.js'
+import contributionHistoryRouter from './routes/contributionHistory.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
 // Load environment variables based on NODE_ENV
@@ -66,6 +67,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/github', githubRouter)
 app.use('/api/recommendations', recommendationsRouter)
 app.use('/api/skills', skillsRouter)
+app.use('/api/contribution-history', contributionHistoryRouter)
 
 // 404 handler
 app.use('*', (req, res) => {
