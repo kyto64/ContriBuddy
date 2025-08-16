@@ -2,7 +2,7 @@
 
 Kontri helps you discover open‑source projects and contribution opportunities that match your skills and interests. It leverages the GitHub API to surface beginner‑friendly issues and recommend repositories tailored to you.
 
-<kbd><img src="https://github.com/user-attachments/assets/abaaf604-63c7-4d7b-8d03-8057292dd35a" /></kbd>
+<kbd><img src="https://github.com/user-attachments/assets/713d625b-874d-4e52-ae12-4b4fd4c3750c" /></kbd>
 
 ## ✨ Features
 
