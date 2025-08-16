@@ -2,6 +2,8 @@
 
 Kontri は、あなたのスキルや興味に合わせて OSS プロジェクトや貢献機会をおすすめする Web アプリです。GitHub API を活用し、特に初心者が意味のあるコントリビュートを見つけるのを支援します。
 
+## 🫵 いますぐ [Kontri](https://kontri.kyto64.com) でオープンソースプロジェクトを探索し、貢献を始めましょう！
+
 <kbd><img src="https://github.com/user-attachments/assets/abaaf604-63c7-4d7b-8d03-8057292dd35a" /></kbd>
 
 ## ✨ 主な機能
