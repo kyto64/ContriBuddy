@@ -1,4 +1,4 @@
-# Kontri
+# <img src="https://github.com/user-attachments/assets/b3caa1c3-3552-412f-8b1d-e57fac23701a" alt="logo" width="60" height="60" style="vertical-align: text-bottom;">Kontri
 
 Kontri helps you discover open‑source projects and contribution opportunities that match your skills and interests. It leverages the GitHub API to surface beginner‑friendly issues and recommend repositories tailored to you.
 
