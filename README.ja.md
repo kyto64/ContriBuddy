@@ -1,6 +1,6 @@
-# ContriBuddy
+# Kontri
 
-🧭 ContriBuddy は、あなたのスキルや興味に合わせて OSS プロジェクトや貢献機会をおすすめする Web アプリです。GitHub API を活用し、特に初心者が意味のあるコントリビュートを見つけるのを支援します。
+Kontri は、あなたのスキルや興味に合わせて OSS プロジェクトや貢献機会をおすすめする Web アプリです。GitHub API を活用し、特に初心者が意味のあるコントリビュートを見つけるのを支援します。
 
 <kbd><img src="https://github.com/user-attachments/assets/abaaf604-63c7-4d7b-8d03-8057292dd35a" /></kbd>
 
@@ -21,43 +21,43 @@
 ### セットアップ手順
 
 1. リポジトリを取得
-   ```bash
-   git clone https://github.com/kyto64/ContriBuddy.git
-   cd ContriBuddy
-   ```
+```bash
+git clone https://github.com/kyto64/Kontri.git
+cd Kontri
+```
 
 2. 依存関係をインストール
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. 環境変数ファイルを作成（サンプルから）
-   ```bash
-   # Backend
-   cp backend/.env.development.example backend/.env.development
+```bash
+# Backend
+cp backend/.env.development.example backend/.env.development
 
-   # Frontend
-   cp frontend/.env.development.example frontend/.env.development
-   ```
+# Frontend
+cp frontend/.env.development.example frontend/.env.development
+```
 
 4. 環境変数を設定
-   - Backend（`backend/.env.development`）
-     - `JWT_SECRET`（任意の安全な文字列）
-     - `GH_CLIENT_ID` / `GH_CLIENT_SECRET`（GitHub OAuth App）
-     - `SERVICE_URL`（フロントのオリジン。例: http://localhost:3000）
-     - `ALLOWED_ORIGINS`（CORS 許可。例: http://localhost:3000）
-     - `PORT`（ローカル: 3001 推奨）
-     - `GITHUB_TOKEN`（任意。検索 API のレート制限緩和用 PAT）
-   - Frontend（`frontend/.env.development`）
-     - `VITE_API_BASE_URL`（例: http://localhost:3001）
+- Backend（`backend/.env.development`）
+  - `JWT_SECRET`（任意の安全な文字列）
+  - `GH_CLIENT_ID` / `GH_CLIENT_SECRET`（GitHub OAuth App）
+  - `SERVICE_URL`（フロントのオリジン。例: http://localhost:3000）
+  - `ALLOWED_ORIGINS`（CORS 許可。例: http://localhost:3000）
+  - `PORT`（ローカル: 3001 推奨）
+  - `GITHUB_TOKEN`（任意。検索 API のレート制限緩和用 PAT）
+- Frontend（`frontend/.env.development`）
+  - `VITE_API_BASE_URL`（例: http://localhost:3001）
 
 5. 開発サーバー起動
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:3001（開発時）
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:3001（開発時）
 
 補足:
 - フロント開発サーバーは `/api` を `http://localhost:3001` にプロキシします（`frontend/vite.config.ts`）。
@@ -119,7 +119,7 @@
 ## 📁 プロジェクト構成
 
 ```
-ContriBuddy/
+Kontri/
 ├── frontend/                 # Vue 3 + Vite
 │   └── src/{components,views,stores,services,types,...}
 ├── backend/                  # Express + TypeScript API
@@ -151,7 +151,7 @@ npm run type-check
 
 ## 🚢 デプロイ
 
-Fly.io へのデプロイに対応しています（フロント: `contribuddy`、バックエンド: `contribuddy-api`）。
+Fly.io へのデプロイに対応しています（フロント: `kontri`、バックエンド: `kontri-api`）。
 本番では Backend は `PORT=3000` で稼働します。Secrets/環境変数や Fly 構成は `DEPLOYMENT.md` を参照してください。
 
 ## 🤝 Contributing
@@ -168,7 +168,7 @@ MIT License（[LICENSE](LICENSE)）
 
 ## 🐛 Issues
 
-バグ報告や要望は [Issues](https://github.com/kyto64/ContriBuddy/issues) へ。
+バグ報告や要望は [Issues](https://github.com/kyto64/Kontri/issues) へ。
 
 ---
 

@@ -1,7 +1,7 @@
 {
-  "name": "contribuddy-backend",
+  "name": "kontri-backend",
   "version": "1.0.0",
-  "description": "Backend API for ContriBuddy - OSS project recommendation service",
+  "description": "Backend API for Kontri - OSS project recommendation service",
   "main": "dist/server.js",
   "type": "module",
   "scripts": {

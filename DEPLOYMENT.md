@@ -1,20 +1,20 @@
-# ContriBuddy Deployment Setup Guide
+# Kontri Deployment Setup Guide
 
-This document reflects the current Fly.io setup (frontend app: `contribuddy`, backend app: `contribuddy-api`).
+This document reflects the current Fly.io setup (frontend app: `kontri`, backend app: `kontri-api`).
 
 ## Required Environment Variables (Production)
 
-Backend (`contribuddy-api`):
+Backend (`kontri-api`):
 - `JWT_SECRET`
 - `GH_CLIENT_ID`
 - `GH_CLIENT_SECRET`
-- `SERVICE_URL` (e.g., `https://contribuddy.fly.dev`)
-- `ALLOWED_ORIGINS` (e.g., `https://contribuddy.fly.dev`)
+- `SERVICE_URL` (e.g., `https://kontri.fly.dev`)
+- `ALLOWED_ORIGINS` (e.g., `https://kontri.fly.dev`)
 - `GITHUB_TOKEN` (optional)
 - `PORT=3000` (match `backend/fly.toml` internal port)
 
-Frontend (`contribuddy`):
-- `VITE_API_BASE_URL` (e.g., `https://contribuddy-api.fly.dev`)
+Frontend (`kontri`):
+- `VITE_API_BASE_URL` (e.g., `https://kontri-api.fly.dev`)
 
 ## GitHub Actions Secrets
 
@@ -57,6 +57,6 @@ flyctl deploy
 - Health check failures: probe backend `/health` (`https://<backend-app>.fly.dev/health`)
 - Logs:
   ```bash
-  flyctl logs -a contribuddy-api
-  flyctl logs -a contribuddy
+  flyctl logs -a kontri-api
+  flyctl logs -a kontri
   ```

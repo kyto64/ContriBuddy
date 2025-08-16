@@ -1,4 +1,4 @@
-# ContriBuddy API Specification
+# Kontri API Specification
 
 Base URL: `http://<backend-host>:<port>/api`
 
