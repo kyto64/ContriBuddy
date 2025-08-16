@@ -95,7 +95,7 @@
     "match": "match"
   },
   "footer": {
-    "description": "ContriBuddy helps developers find meaningful open-source projects to contribute to.",
+    "description": "Kontri helps developers find meaningful open-source projects to contribute to.",
     "quickLinks": "Quick Links",
     "home": "Home",
     "findProjects": "Find Projects",
@@ -106,7 +106,7 @@
     "documentation": "Documentation",
     "apiDocs": "API Documentation",
     "support": "Support",
-    "madeWith": "Made with ❤️ by the ContriBuddy team"
+    "madeWith": "Made with ❤️ by the Kontri team"
   },
   "common": {
     "loading": "Loading...",

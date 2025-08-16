@@ -95,7 +95,7 @@
     "match": "マッチ"
   },
   "footer": {
-    "description": "ContriBuddyは開発者が意義のあるオープンソースプロジェクトを見つけることを支援します。",
+    "description": "Kontriは開発者が意義のあるオープンソースプロジェクトを見つけることを支援します。",
     "quickLinks": "クイックリンク",
     "home": "ホーム",
     "findProjects": "プロジェクトを探す",
@@ -106,7 +106,7 @@
     "documentation": "ドキュメント",
     "apiDocs": "API ドキュメント",
     "support": "サポート",
-    "madeWith": "ContriBuddyチームの ❤️ によって作成"
+    "madeWith": "Kontriチームの ❤️ によって作成"
   },
   "common": {
     "loading": "読み込み中...",

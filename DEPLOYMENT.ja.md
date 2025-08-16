@@ -1,20 +1,20 @@
-# ContriBuddy Deployment Setup Guide
+# Kontri Deployment Setup Guide
 
-このドキュメントは現行の Fly.io 設定（frontend: `contribuddy`, backend: `contribuddy-api`）に基づきます。
+このドキュメントは現行の Fly.io 設定（frontend: `kontri`, backend: `kontri-api`）に基づきます。
 
 ## 必要な環境変数（本番）
 
-バックエンド（`contribuddy-api`）:
+バックエンド（`kontri-api`）:
 - `JWT_SECRET`
 - `GH_CLIENT_ID`
 - `GH_CLIENT_SECRET`
-- `SERVICE_URL`（例: `https://contribuddy.fly.dev`）
-- `ALLOWED_ORIGINS`（例: `https://contribuddy.fly.dev`）
+- `SERVICE_URL`（例: `https://kontri.fly.dev`）
+- `ALLOWED_ORIGINS`（例: `https://kontri.fly.dev`）
 - `GITHUB_TOKEN`（任意）
 - `PORT=3000`（fly.toml に合わせて 3000）
 
-フロントエンド（`contribuddy`）:
-- `VITE_API_BASE_URL`（例: `https://contribuddy-api.fly.dev`）
+フロントエンド（`kontri`）:
+- `VITE_API_BASE_URL`（例: `https://kontri-api.fly.dev`）
 
 ## GitHub Actions Secrets Configuration
 
@@ -57,6 +57,6 @@ flyctl deploy
 - ヘルス失敗: backend の `/health` を確認（`https://<backend-app>.fly.dev/health`）
 - ログ確認:
   ```bash
-  flyctl logs -a contribuddy-api
-  flyctl logs -a contribuddy
+  flyctl logs -a kontri-api
+  flyctl logs -a kontri
   ```

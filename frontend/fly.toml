@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for contribuddy on 2025-08-10T04:24:18Z
+# fly.toml app configuration file generated for kontri on 2025-08-16T07:29:01Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'contribuddy'
+app = 'kontri'
 primary_region = 'nrt'
 
 [build]

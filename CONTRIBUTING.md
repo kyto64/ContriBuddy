@@ -1,11 +1,11 @@
-# Contributing to ContriBuddy
+# Contributing to Kontri
 
-Thank you for your interest in contributing to ContriBuddy! We welcome contributions from everyone.
+Thank you for your interest in contributing to Kontri! We welcome contributions from everyone.
 
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/kyto64/ContriBuddy.git`
+2. Clone your fork: `git clone https://github.com/kyto64/Kontri.git`
 3. Create a new branch: `git checkout -b feature/your-feature-name`
 4. Make your changes
 5. Test your changes
@@ -39,7 +39,7 @@ This will start:
 ## Project Structure
 
 ```
-ContriBuddy/
+Kontri/
 ├── frontend/          # Vue.js frontend application
 ├── backend/           # Node.js/Express backend API
 ├── package.json       # Root workspace configuration

@@ -1,4 +1,4 @@
-# ContriBuddy API 仕様
+# Kontri API 仕様
 
 ベースURL: `http://<backend-host>:<port>/api`
 

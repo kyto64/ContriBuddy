@@ -1,6 +1,6 @@
-# ContriBuddy
+# Kontri
 
-ContriBuddy helps you discover open‑source projects and contribution opportunities that match your skills and interests. It leverages the GitHub API to surface beginner‑friendly issues and recommend repositories tailored to you.
+Kontri helps you discover open‑source projects and contribution opportunities that match your skills and interests. It leverages the GitHub API to surface beginner‑friendly issues and recommend repositories tailored to you.
 
 <kbd><img src="https://github.com/user-attachments/assets/abaaf604-63c7-4d7b-8d03-8057292dd35a" /></kbd>
 
@@ -25,8 +25,8 @@ ContriBuddy helps you discover open‑source projects and contribution opportuni
 
 1) Clone and install
 ```bash
-git clone https://github.com/kyto64/ContriBuddy.git
-cd ContriBuddy
+git clone https://github.com/kyto64/Kontri.git
+cd Kontri
 npm install
 ```
 
@@ -119,7 +119,7 @@ See `docs/API.md` for details and `docs/OPENAPI.json` for the OpenAPI sketch.
 ## 📁 Project Structure
 
 ```
-ContriBuddy/
+Kontri/
 ├── frontend/                 # Vue 3 + Vite
 │   └── src/{components,views,stores,services,types,...}
 ├── backend/                  # Express + TypeScript API
@@ -151,7 +151,7 @@ npm run type-check
 
 ## 🚢 Deployment
 
-Fly.io deployment ready (frontend app: `contribuddy`, backend app: `contribuddy-api`).
+Fly.io deployment ready (frontend app: `kontri`, backend app: `kontri-api`).
 Backend listens on `PORT=3000` in production. See `DEPLOYMENT.md` for secrets and config.
 
 ## 🤝 Contributing
@@ -168,7 +168,7 @@ Found a vulnerability? See [SECURITY.md](SECURITY.md) for responsible disclosure
 
 ## 🐛 Issues
 
-Bug reports and feature requests: https://github.com/kyto64/ContriBuddy/issues
+Bug reports and feature requests: https://github.com/kyto64/Kontri/issues
 
 ---
 

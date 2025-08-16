@@ -8,7 +8,7 @@ const githubApi = axios.create({
   baseURL: GITHUB_API_BASE,
   headers: {
     'Accept': 'application/vnd.github+json',
-    'User-Agent': 'ContriBuddy-App',
+    'User-Agent': 'Kontri-App',
     'X-GitHub-Api-Version': '2022-11-28',
     ...(GITHUB_TOKEN && { 'Authorization': `Bearer ${GITHUB_TOKEN}` })
   }
@@ -67,7 +67,7 @@ export class GitHubService {
     const resp = await axios.get(`${GITHUB_API_BASE}/user`, {
       headers: {
         'Accept': 'application/vnd.github+json',
-        'User-Agent': 'ContriBuddy-App',
+        'User-Agent': 'Kontri-App',
         'X-GitHub-Api-Version': '2022-11-28',
         'Authorization': `Bearer ${accessToken}`
       }
@@ -83,7 +83,7 @@ export class GitHubService {
       baseURL: GITHUB_API_BASE,
       headers: {
         'Accept': 'application/vnd.github+json',
-        'User-Agent': 'ContriBuddy-App',
+        'User-Agent': 'Kontri-App',
         'X-GitHub-Api-Version': '2022-11-28',
         'Authorization': `Bearer ${accessToken}`
       }
@@ -99,7 +99,7 @@ export class GitHubService {
     const resp = await axios.get(`${GITHUB_API_BASE}/user/following`, {
       headers: {
         'Accept': 'application/vnd.github+json',
-        'User-Agent': 'ContriBuddy-App',
+        'User-Agent': 'Kontri-App',
         'X-GitHub-Api-Version': '2022-11-28',
         'Authorization': `Bearer ${accessToken}`
       },
@@ -112,7 +112,7 @@ export class GitHubService {
   static async getUserRecentContributedRepos(username: string, accessToken?: string, perPage = 50): Promise<Set<string>> {
     const headers: Record<string, string> = {
       'Accept': 'application/vnd.github+json',
-      'User-Agent': 'ContriBuddy-App',
+      'User-Agent': 'Kontri-App',
       'X-GitHub-Api-Version': '2022-11-28'
     }
     if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`
